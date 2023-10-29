@@ -12,56 +12,65 @@ format:
         code-fold: true
 jupyter: python3
 ---
-For a demonstration of a line plot on a polar axis, see @fig-polar.
 
 ```{python}
-#| label: fig-polar
-#| fig-cap: "A line plot on a polar axis"
+#| label: timesteps
+#| fig-cap: "An example of a noise-schedule wrt timesteps function"
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-r = np.arange(0, 2, 0.01)
-theta = 2 * np.pi * r
-fig, ax = plt.subplots(
-  subplot_kw = {'projection': 'polar'} 
-)
-ax.plot(theta, r)
-ax.set_rticks([0.5, 1, 1.5, 2])
-ax.grid(True)
+# Generate random data for time steps and corresponding noise levels
+time_steps = np.arange(0, 1000, 1)  # Assuming 100 time steps
+noise_levels =[-(x)**2 + 30*x + 2 for x in range(1,1001)] # Random noise levels between 0 and 1
+
+# Plotting the time-step noise schedule graph
+plt.figure(figsize=(10, 6))
+plt.plot(time_steps, noise_levels, color='b', label='Noise Levels')
+plt.xlabel('Time Steps')
+plt.ylabel('Noise Level')
+plt.legend()
 plt.show()
 ```
 
 # Stable Diffusion for dummies
+
 Most people reading this have probably heard of image generation through AI at some point in time. If you're among those who haven't, then this journey will be even better as I go in some fair detail to explain what it is.
 
-If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet for that), I think we'll still get to dip our toes. 
+If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet for that), I think we'll still get to dip our toes.
 
 ![](buckleup.gif)
 
+## Cool pics to pump you up:
 
+\
 
+I'll just let the images speak.  
 
-### Cool pics to pump you up  
-
-I'll just let the images speak.
+\
 
 ![cozy warm image of an indian male programmer sitting near a beautiful pond, scenic, matches white background, beautiful](img3.jpg)
 
+\
+
 ![Dune arakis in the background. Paul Atreides giving speech. Crowd listening is charged, ominous foreboding theme.](img4.jpg)
+
+\
 
 ![nspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space](img5.jpg)
 
-All of the above were generated with simple but detailed text prompts.
+\
 
-Probability of Noise: 
+All of the above were generated with simple but detailed text prompts.
+\
+Probability of Noise:
 
 $$\nabla_X P(X)$$
 
 ```{mermaid}
 flowchart LR
   I1(img1) --> F((Magic Function))
-  I2(img2) --> F 
+  I2(img2) --> F
   I3(img3) --> F
   F --> O1("P(img1)")
   F --> O2("P(img2)")
@@ -69,11 +78,23 @@ flowchart LR
 
 ```
 
+\
 
+```{mermaid}
+flowchart LR
+    B["Randomly selected sequential noise"] -->  X((+))
+    X --> A["Somewhat noisy latent"] --> C(("Diffusion Model"))
+    C --> D("Predicted Noise") --> - --> A
+    A --> E["Less noisy latent"]
+    F["Randomly Selected Noise"] --> Z((+)) --> E -->
+    G(("Updated Diffusion Model")) --> H("Predicted Noise")
+    H --> Y[-] --> E
+```
 
-| Model   | Input | Output | Notes |
-|---------|------|-------|--------|
-| Unet      | somewhat noisy latents  | the noise |  -   |
-| VAE Decoder     | small latents tensor|  large image   | guided by captions |
-| CLIP text encoder       | text   |  embedding |  -   |
+\
 
+| Model             | Input                  | Output      | Notes              |
+| ----------------- | ---------------------- | ----------- | ------------------ |
+| Unet              | somewhat noisy latents | the noise   | -                  |
+| VAE Decoder       | small latents tensor   | large image | guided by captions |
+| CLIP text encoder | text                   | embedding   | -                  |
