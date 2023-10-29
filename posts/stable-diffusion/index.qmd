@@ -50,3 +50,17 @@ I'll just let the images speak.
 
 All of the above were generated with simple but detailed text prompts.
 
+Probability of Noise: 
+
+$$\nabla_X P(X)$$
+
+```{mermaid}
+flowchart LR
+  I1(img1) --> F((Magic Function))
+  I2(img2) --> F 
+  I3(img3) --> F
+  F --> O1("P(img1)")
+  F --> O2("P(img2)")
+  F --> O3("P(img3)")
+
+```

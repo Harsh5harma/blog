@@ -16,9 +16,8 @@ about:
 
 ---
 
-## About
 
-I’m a 20 yr. old CS student with a new found interest for Deep learning. I love writing code and learning concepts that make me tear my hair out ; )
+Hey! I'm Harsh Sharma, a 20 yr old CS student with a new found interest for Deep learning. I love writing code and learning concepts that make me tear my hair out ; )
 
 I was introduced to the basics of HTML, CSS and some python in middle school and early high school, but I started programming much more seriously a few months before starting college.
 
