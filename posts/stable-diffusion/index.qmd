@@ -4,6 +4,9 @@ description: 'A little informal guide to diffusion first timers.'
 author: 'Harsh Sharma'
 date: '10/29/2023'
 image: logo.png
+categories:
+  - Notes
+  - Fastai Part2
 format: 
     html: 
         code-fold: true
@@ -65,4 +68,12 @@ flowchart LR
   F --> O3("P(img3)")
 
 ```
+
+
+
+| Model   | Input | Output | Notes |
+|---------|------|-------|--------|
+| Unet      | somewhat noisy latents  | the noise |  -   |
+| VAE Decoder     | small latents tensor|  large image   | guided by captions |
+| CLIP text encoder       | text   |  embedding |  -   |
 

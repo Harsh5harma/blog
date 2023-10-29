@@ -154,7 +154,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           A little informal guide to diffusion first timers.
         </div>
       </div>
-                </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Notes</div>
+                <div class="quarto-category">Fastai Part2</div>
+              </div>
+                  </div>
   </div>
     
   
@@ -221,22 +225,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="buckleup.gif" class="img-fluid"></p>
 <section id="cool-pics-to-pump-you-up" class="level3">
 <h3 class="anchored" data-anchor-id="cool-pics-to-pump-you-up">Cool pics to pump you up</h3>
-<p><code></code><br>
-<code></code></p>
 <p>I’ll just let the images speak.</p>
-<p><img src="img3.jpg" class="img-fluid" alt="cozy warm image of an indian male programmer sitting near a beautiful pond, scenic, matches white background, beautiful"> <code></code><br>
-<code></code><br>
-<code></code><br>
-<code></code><br>
-<img src="img4.jpg" class="img-fluid" alt="Dune arakis in the background. Paul Atreides giving speech. Crowd listening is charged, ominous foreboding theme."> <code></code><br>
-<code></code><br>
-<code></code><br>
-<code></code><br>
-<img src="img5.jpg" class="img-fluid" alt="nspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space"> <code></code><br>
-<code></code><br>
-<code></code><br>
-<code></code><br>
-All of the above were generated with simple but detailed text prompts.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img3.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">cozy warm image of an indian male programmer sitting near a beautiful pond, scenic, matches white background, beautiful</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img4.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Dune arakis in the background. Paul Atreides giving speech. Crowd listening is charged, ominous foreboding theme.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img5.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">nspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space</figcaption>
+</figure>
+</div>
+<p>All of the above were generated with simple but detailed text prompts.</p>
 <p>Probability of Noise:</p>
 <p><span class="math display">\[\nabla_X P(X)\]</span></p>
 <div class="cell">
@@ -256,6 +264,42 @@ All of the above were generated with simple but detailed text prompts.</p>
 </div>
 </div>
 </div>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 20%">
+<col style="width: 23%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Input</th>
+<th>Output</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unet</td>
+<td>somewhat noisy latents</td>
+<td>the noise</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>VAE Decoder</td>
+<td>small latents tensor</td>
+<td>large image</td>
+<td>guided by captions</td>
+</tr>
+<tr class="odd">
+<td>CLIP text encoder</td>
+<td>text</td>
+<td>embedding</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
