@@ -34,19 +34,20 @@ Most people reading this have probably heard of image generation through AI at s
 
 If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet for that), I think we'll still get to dip our toes. 
 
-![buckleup](buckleup.gif)
+![](buckleup.gif)
 
 
 
 
-### Cool pics to pump you up
+### Cool pics to pump you up  
+
 I'll just let the images speak.
 
+![cozy warm image of an indian male programmer sitting near a beautiful pond, scenic, matches white background, beautiful](img3.jpg)
 
-![buckleup](img1.jpg)
-![buckleup](img3.jpg)
-![buckleup](img4.jpg)
-![buckleup](img5.jpg)
+![Dune arakis in the background. Paul Atreides giving speech. Crowd listening is charged, ominous foreboding theme.](img4.jpg)
+
+![nspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space](img5.jpg)
 
 All of the above were generated with simple but detailed text prompts.
 
@@ -64,3 +65,4 @@ flowchart LR
   F --> O3("P(img3)")
 
 ```
+
