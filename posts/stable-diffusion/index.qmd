@@ -1,0 +1,28 @@
+---
+title: 'Stable Diffusion for dummies'
+description: 'A little informal guide to diffusion first timers.'
+author: 'Harsh Sharma'
+date: '10/29/2023'
+image: logo.png
+---
+
+# Stable Diffusion for dummies
+Most people reading this have probably heard of image generation through AI at some point in time. If you're among those who haven't, then this journey will be even better as I go in some fair detail to explain what it is.
+
+If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet for that), I think we'll still get to dip our toes. 
+
+![buckleup](buckleup.gif)
+
+
+
+
+### Cool pics to pump you up
+I'll just let the images speak.
+
+
+![buckleup](img1.jpg)
+![buckleup](img3.jpg)
+![buckleup](img4.jpg)
+![buckleup](img5.jpg)
+
+All of the above were generated with simple but detailed text prompts.

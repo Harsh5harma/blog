@@ -1,0 +1,27 @@
+---
+title: "About"
+image: profile.png
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/HowdySharma
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/harsh-sharma-7ba90521a/
+    - icon: github
+      text: Github
+      href: https://github.com/Harsh5harma
+
+---
+
+## About
+
+I’m a 20 yr. old CS student with a new found interest for Deep learning. I love writing code and learning concepts that make me tear my hair out ; )
+
+I was introduced to the basics of HTML, CSS and some python in middle school and early high school, but I started programming much more seriously a few months before starting college.
+
+I also share a deep love for core CS concepts and the most recent project I did was related to writing my own little toy language. The languages I’m comfortable with include Python, C++, C, Javascript (and maybe Java). Other than that I’m also quite familar with HTML&CSS and am currently learning React as well.
+
+Tech stuff apart, I love reading and listening to music. Current book of mine is The Republic by Plato and my favorite band atm is Nine Inch Nails (Ghosts I-IV 🤘).

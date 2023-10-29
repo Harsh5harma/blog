@@ -1,0 +1,13 @@
+---
+title: "Theory Threads and Dev Doodles"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+
