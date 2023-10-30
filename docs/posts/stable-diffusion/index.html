@@ -8,9 +8,9 @@
 
 <meta name="author" content="Harsh Sharma">
 <meta name="dcterms.date" content="2023-10-29">
-<meta name="description" content="A little informal guide to diffusion first timers.">
+<meta name="description" content="A little informal guide for diffusion first timers.">
 
-<title>Theory Threads and Dev Doodles - Stable Diffusion for dummies</title>
+<title>Theory Threads and Dev Doodles - Stable Diffusion for dummies (written by a dummy)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -148,10 +114,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Stable Diffusion for dummies</h1>
+      <h1 class="title">Stable Diffusion for dummies (written by a dummy)</h1>
                   <div>
         <div class="description">
-          A little informal guide to diffusion first timers.
+          A little informal guide for diffusion first timers.
         </div>
       </div>
                           <div class="quarto-categories">
@@ -192,37 +158,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<div class="cell" data-execution_count="1">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random data for time steps and corresponding noise levels</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>time_steps <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="dv">1</span>)  <span class="co"># Assuming 100 time steps</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>noise_levels <span class="op">=</span>[<span class="op">-</span>(x)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">30</span><span class="op">*</span>x <span class="op">+</span> <span class="dv">2</span> <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">1001</span>)] <span class="co"># Random noise levels between 0 and 1</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the time-step noise schedule graph</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.plot(time_steps, noise_levels, color<span class="op">=</span><span class="st">'b'</span>, label<span class="op">=</span><span class="st">'Noise Levels'</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Time Steps'</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Noise Level'</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div id="timesteps" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="index_files/figure-html/timesteps-output-1.png" width="823" height="517" class="figure-img"></p>
-<figcaption class="figure-caption">An example of a noise-schedule wrt timesteps function</figcaption>
-</figure>
-</div>
-</div>
-</div>
 <section id="stable-diffusion-for-dummies" class="level1">
 <h1>Stable Diffusion for dummies</h1>
-<p>Most people reading this have probably heard of image generation through AI at some point in time. If you’re among those who haven’t, then this journey will be even better as I go in some fair detail to explain what it is.</p>
-<p>If at any point, the things I talk about seem hard, don’t be discouraged as it’s more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don’t know enough stuff yet for that), I think we’ll still get to dip our toes.</p>
+<p>Most people reading this have probably heard of image generation at some point in time. If you’re among those who haven’t, then this journey will be even better as I go in some fair detail to try and explain what it is.</p>
+<p>If at any point, the things I talk about seem hard, don’t be discouraged as it’s more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don’t know enough stuff yet), I think we’ll still get to dip our toes.</p>
 <p><img src="buckleup.gif" class="img-fluid"></p>
 <section id="cool-pics-to-pump-you-up" class="level2">
 <h2 class="anchored" data-anchor-id="cool-pics-to-pump-you-up">Cool pics to pump you up:</h2>
@@ -250,31 +189,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img5.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">nspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space</figcaption>
+<figcaption class="figure-caption">inspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space</figcaption>
 </figure>
 </div>
 <p><br>
 </p>
-<p>All of the above were generated with simple but detailed text prompts.<br>
-Probability of Noise:</p>
-<p><span class="math display">\[\nabla_X P(X)\]</span></p>
+<p>All of the above were generated with simple but detailed text prompts.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names I guess. In case you’re a bit rusty with some of the terms, I’ve defined the most common ones below.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Jargon">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Jargon
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>parameters</td>
+<td>the values in the model that change what task it can do, updated through model training</td>
+</tr>
+<tr class="even">
+<td>architecture</td>
+<td>The mathematical function that we pass input data and parameters to</td>
+</tr>
+<tr class="odd">
+<td>model</td>
+<td>The combination of the architecture with a particular set of parameters</td>
+</tr>
+<tr class="even">
+<td>gradient</td>
+<td>A Tensor that tells us how the vector field changes in any direction</td>
+</tr>
+<tr class="odd">
+<td>loss</td>
+<td>A measure of how good the model is, chosen to drive training via stochastic gradient descent</td>
+</tr>
+<tr class="even">
+<td>CNN</td>
+<td>Convolutional Neural Network; a type of NN that works well for computer vision tasks</td>
+</tr>
+<tr class="odd">
+<td>embeddings</td>
+<td>A relatively-low dimension space into which we can translate high-dimensional vectors</td>
+</tr>
+<tr class="even">
+<td>latent</td>
+<td>A latent is a compressed, rough representation of a higher quality image. It consists of the most important features of an image</td>
+</tr>
+<tr class="odd">
+<td>noise</td>
+<td>Random variation of brightness or color information in images</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>If you had to make a guess about how image generation works, what would that guess be? Think for a moment. If you’re like me, then you probably thought that we try to get the model to spit out cool looking images, right? Well, not exactly. Bear with me for a moment. &nbsp;</p>
+<p>Imagine a magic function that takes in images of handwritten digits as inputs and spits out the probability that the input is a digit. &nbsp;</p>
+<p>Let the probability be <span class="math inline">\(P(X)\)</span> for an input Image X.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-  I1(img1) --&gt; F((Magic Function))
-  I2(img2) --&gt; F
-  I3(img3) --&gt; F
-  F --&gt; O1("P(img1)")
-  F --&gt; O2("P(img2)")
-  F --&gt; O3("P(img3)")
+  I1(X1) --&gt; F((Magic Function))
+  I2(X2) --&gt; F
+  I3(X3) --&gt; F
+  F --&gt; O1("P(X1)")
+  F --&gt; O2("P(X2)")
+  F --&gt; O3("P(X3)")
 
 </pre>
 </div>
 </div>
 </div>
 </div>
+<p><br>
+</p>
+<p>Wait. How do we use this function to generate new digits?<br>
+We do the following steps:<br>
+</p>
+<ol type="1">
+<li>Try making a pixel of X darker and then check the output probability</li>
+<li>Try making a pixel of X lighter and then check probability</li>
+<li>Do this for every pixel in X (If X is a 28x28 image, that’s 784 times!)</li>
+</ol>
+<p>What we’re calculating is the probability of X being a handwritten digit wrt the gradient of X. This function is called the <code>Score Funtion</code>. <span class="math display">\[\nabla_X P(X)\]</span></p>
+<p><code>Noisy image = Clear Image + Noise</code><br>
+</p>
+<p>Full disclaimer that this is an absurdly simplified explanation of it and the real thing is probably much more different and complicated but, it is a good place to build some intuition from.<br>
+</p>
+<p>Probability of Noise:</p>
 <p><br>
 </p>
 <div class="cell">

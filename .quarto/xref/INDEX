@@ -13,5 +13,8 @@
   },
   "posts/stable-diffusion/index.qmd": {
     "index.html": "442aa59c"
+  },
+  "calculation.ipynb": {
+    "calculation.html": "a436044a"
   }
 }
