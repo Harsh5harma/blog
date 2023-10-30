@@ -4,19 +4,27 @@ description: 'A little informal guide for diffusion first timers.'
 author: 'Harsh Sharma'
 date: '10/29/2023'
 image: logo.png
+toc: true
+toc-expand: 2 
+toc-title: 'Contents'
+number-sections: true
+number-depth: 3 
 categories:
   - Notes
   - Fastai Part2
 ---
-# Stable Diffusion for dummies
-
+:::{.callout-caution title="About this blog" collapse="true"}
+This is my first ever blog and it's on a topic I find relatively hard, although I've tried my best to be accurate in whatever I write, It won't be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don't have that necessary but aquired oversight yet. So I'm asking the reader to help me out with any errors they might spot and I'll happily correct whatever it is that I presented wrong.
+:::
+# Introduction 
 Most people reading this have probably heard of image generation at some point in time. If you're among those who haven't, then this journey will be even better as I go in some fair detail to try and explain what it is.
 
 If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet), I think we'll still get to dip our toes.
 
 ![](buckleup.gif){width=40%}
+\ 
 
-## Cool pics to pump you up:
+# Cool AI generated images
 I'll just let the images speak.  
 \
 
@@ -30,6 +38,8 @@ I'll just let the images speak.
 \
 
 All of the above were generated with simple but detailed text prompts.
+\ 
+# Understanding the problem
 
 ::: {.callout-caution}
 This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names I guess. In case you're a bit rusty with some of the terms, I've defined most used in this blog.
@@ -113,14 +123,14 @@ Seems simple enough to do for any seasoned DL practitioner. Alas! There's a catc
 :::{.callout-important}
 Don't forget that our end goal is making super pretty images like we saw at the start, not some basic digits.
 :::
-\
-
 So, they decided on an interesting but very logical approach.\
+
+# An attempt at a basic image generation model
 
 Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.\
 `Noisy Image = Noise + Clear Image`
 
-Wkt we can't predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we'd just have to subtract that predicted noise from the noisy image to end up with a relatively Clear Image. \
+Wkt we can't predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we'd just have to subtract that predicted noise from the noisy image to end up with a relatively clear Image. \
 
 Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it. \
 
@@ -160,7 +170,9 @@ flowchart LR
 ```
 
 
-Now if were living in the 90s, this model would certainly grab a lot of attention and maybe fame, but we're not. We have overlooked some very grave issues.
+# Problems with our basic model
+
+If we were living in the 90s, the model we built would certainly grab a lot of attention and maybe fame, but we're not. We have overlooked some very grave issues.
 
 1. We're not working with tiny $28x28$ pixel images of handwritten digits here, we're working with $512x512x3$ (High quality RGB) images.
 2. Each of our 9 handwritten digits can be one-hot encoded into a vector but beyond that, we can't one-hot encode infinite possible texts. 
@@ -316,7 +328,7 @@ The loss function is known as `Contrastive Loss`, and it should be zero if all o
 
 So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.
 
-## Updated Model
+# Updated Model
 
 ```{mermaid}
 flowchart LR
@@ -336,15 +348,17 @@ And what about generation? For image generation, our model could take as input a
 This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven't discussed yet. It's called Time-Steps.
 
 
-## Time-Steps
+# Time-Steps
 
 To start off, time steps has nothing to do with time. It's just an overhang from the math of the first few papers written on stable defusion. 
 
 It's just a method of generating random noise for the inputs we pass in to our model. The noise used is varying and the `noise schedule` is some monotonically decreasing function.
 
-![Time-Steps v/s noise schedule](noise.png)[width=70%]
+![Time-Steps v/s noise schedule](noise.png){width=70%}
+
 
 The algorithm to pick noise is: 
+
 1. Randomly choose a number b/w 1-100
 2. Look at noise schedule for that number.
 
@@ -356,3 +370,25 @@ Well, we generate noise using the 2 steps above for each image in our mini-batch
 :::{.callout-note}
 These days, it's widely accepted that the addition of noise to input images using time-steps in stable-diffusion impacted the quality of the generated images negatively and it's not used in newer diffusion models.
 :::
+
+# Concluding QNA
+
+How does whatever we did above tie in with the first equation we had?
+
+`Some Noisy Image` - $c*\nabla_X P(X)$ 
+
+1. What would the value of $c$ be and is it similar to learning rate?
+  : `Ans`. The value of $c$ depends on the diffusion sampler we use and yes $c$ is kind of like a learning rate.
+2. Why can't our model jump to the best image in one step?
+  : `Ans`. Because things that look weird and hideous like the image below don't appear in our training set, and our model doesn't know what to do with them.
+
+  ![hideous image generated by the model](ugly.png){width=70%}
+
+  Our model only knows how to deal with somewhat noisy images and that's it. It can only denoise whenever it sees some noise.
+
+  That's why we subtract just a bit of noise (hence the $c$), so that we are always left with some noisy latent.
+
+# References
+
+1. fastai practical deep learning for coders
+

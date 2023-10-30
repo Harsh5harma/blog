@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -151,20 +151,56 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
+  <li><a href="#cool-ai-generated-images" id="toc-cool-ai-generated-images" class="nav-link" data-scroll-target="#cool-ai-generated-images"><span class="header-section-number">2</span> Cool AI generated images</a></li>
+  <li><a href="#an-attempt-at-a-basic-image-generation-model" id="toc-an-attempt-at-a-basic-image-generation-model" class="nav-link" data-scroll-target="#an-attempt-at-a-basic-image-generation-model"><span class="header-section-number">3</span> An attempt at a basic image generation model</a></li>
+  <li><a href="#problems-with-our-basic-model" id="toc-problems-with-our-basic-model" class="nav-link" data-scroll-target="#problems-with-our-basic-model"><span class="header-section-number">4</span> Problems with our basic model</a>
+  <ul class="collapse">
+  <li><a href="#vae-variational-auto-encoder" id="toc-vae-variational-auto-encoder" class="nav-link" data-scroll-target="#vae-variational-auto-encoder"><span class="header-section-number">4.1</span> VAE: Variational Auto Encoder</a></li>
+  <li><a href="#clip" id="toc-clip" class="nav-link" data-scroll-target="#clip"><span class="header-section-number">4.2</span> CLIP</a></li>
+  </ul></li>
+  <li><a href="#updated-model" id="toc-updated-model" class="nav-link" data-scroll-target="#updated-model"><span class="header-section-number">5</span> Updated Model</a></li>
+  <li><a href="#time-steps" id="toc-time-steps" class="nav-link" data-scroll-target="#time-steps"><span class="header-section-number">6</span> Time-Steps</a></li>
+  <li><a href="#concluding-qna" id="toc-concluding-qna" class="nav-link" data-scroll-target="#concluding-qna"><span class="header-section-number">7</span> Concluding QNA</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">8</span> References</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<section id="stable-diffusion-for-dummies" class="level1">
-<h1>Stable Diffusion for dummies</h1>
+<div class="callout callout-style-default callout-caution callout-titled" title="About this blog">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+About this blog
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is my first ever blog and it’s on a topic I find relatively hard, although I’ve tried my best to be accurate in whatever I write, It won’t be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don’t have that necessary but aquired oversight yet. So I’m asking the reader to help me out with any errors they might spot and I’ll happily correct whatever it is that I presented wrong.</p>
+</div>
+</div>
+</div>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Most people reading this have probably heard of image generation at some point in time. If you’re among those who haven’t, then this journey will be even better as I go in some fair detail to try and explain what it is.</p>
 <p>If at any point, the things I talk about seem hard, don’t be discouraged as it’s more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don’t know enough stuff yet), I think we’ll still get to dip our toes.</p>
-<p><img src="buckleup.gif" class="img-fluid" style="width:40.0%"></p>
-<section id="cool-pics-to-pump-you-up" class="level2">
-<h2 class="anchored" data-anchor-id="cool-pics-to-pump-you-up">Cool pics to pump you up:</h2>
+<p><img src="buckleup.gif" class="img-fluid" style="width:40.0%"> &nbsp;</p>
+</section>
+<section id="cool-ai-generated-images" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Cool AI generated images</h1>
 <p>I’ll just let the images speak.<br>
 <br>
 </p>
@@ -200,7 +236,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p><br>
 </p>
-<p>All of the above were generated with simple but detailed text prompts.</p>
+<p>All of the above were generated with simple but detailed text prompts. &nbsp; # Understanding the problem</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -215,7 +251,7 @@ Caution
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Jargon">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -224,7 +260,7 @@ Jargon
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <table class="table">
 <colgroup>
@@ -386,13 +422,14 @@ Important
 <p>Don’t forget that our end goal is making super pretty images like we saw at the start, not some basic digits.</p>
 </div>
 </div>
-<p><br>
-</p>
 <p>So, they decided on an interesting but very logical approach.<br>
 </p>
+</section>
+<section id="an-attempt-at-a-basic-image-generation-model" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> An attempt at a basic image generation model</h1>
 <p>Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.<br>
 <code>Noisy Image = Noise + Clear Image</code></p>
-<p>Wkt we can’t predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively Clear Image.<br>
+<p>Wkt we can’t predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively clear Image.<br>
 </p>
 <p>Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it.<br>
 </p>
@@ -440,7 +477,10 @@ Important
 </div>
 </div>
 </div>
-<p>Now if were living in the 90s, this model would certainly grab a lot of attention and maybe fame, but we’re not. We have overlooked some very grave issues.</p>
+</section>
+<section id="problems-with-our-basic-model" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Problems with our basic model</h1>
+<p>If we were living in the 90s, the model we built would certainly grab a lot of attention and maybe fame, but we’re not. We have overlooked some very grave issues.</p>
 <ol type="1">
 <li>We’re not working with tiny <span class="math inline">\(28x28\)</span> pixel images of handwritten digits here, we’re working with <span class="math inline">\(512x512x3\)</span> (High quality RGB) images.</li>
 <li>Each of our 9 handwritten digits can be one-hot encoded into a vector but beyond that, we can’t one-hot encode infinite possible texts.</li>
@@ -460,9 +500,8 @@ Note
 </div>
 <p>Well then, is our case hopeless here? Were the images I showed faked? No, for we have the <code>VAE autoencoder</code> and the <code>CLIP</code> multimodal encoders and decoders to the rescue. Let’s understand what they are and get into how they solve both of our problems.<br>
 </p>
-</section>
-<section id="vae-variational-auto-encoder" class="level2">
-<h2 class="anchored" data-anchor-id="vae-variational-auto-encoder">VAE: Variational Auto Encoder</h2>
+<section id="vae-variational-auto-encoder" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="vae-variational-auto-encoder"><span class="header-section-number">4.1</span> VAE: Variational Auto Encoder</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="VAE.png" class="img-fluid figure-img"></p>
@@ -595,12 +634,12 @@ Note
 </div>
 </div>
 </section>
-<section id="clip" class="level2">
-<h2 class="anchored" data-anchor-id="clip">CLIP</h2>
+<section id="clip" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="clip"><span class="header-section-number">4.2</span> CLIP</h2>
 <p>Ignore the weird name for now and focus on the second problem we had. Which was, finding a way to create embeddings for any possible text and not just the digits b/w 0 to 9 so we could guide the model.</p>
 <p>What if we had a model that spat out a vector representation of every complex sentence, such that we could pass it with our <code>latent tensor</code> as <code>guidance</code>. And what if, that model created textual embeddings in such a way, that they ended up being close to the <code>latent tensor</code>’s embedding in the <code>latent space</code>.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="My personal intuition for this, could be wrong.">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -609,7 +648,7 @@ My personal intuition for this, could be wrong.
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>If the above paragraph was hard to get, I can explain with a more grounded example. I’m aware that the human brain and neural networks are not at all the same in the manner with which they function, and are designed but I couldn’t think of an easier example, so bear with me.</p>
 <p>Imagine a <em>guitar with a few broken strings</em>, after reading this text could your brain think up of an image showing the same? It might not be super clear, 4k quality or something, but you could in your head think of an image that had the most important features that a <em>guitar with a few broken strings</em> might have.</p>
@@ -660,8 +699,9 @@ My personal intuition for this, could be wrong.
 <p>The loss function is known as <code>Contrastive Loss</code>, and it should be zero if all our generated embeddings are perfect matches.</p>
 <p>So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.</p>
 </section>
-<section id="updated-model" class="level2">
-<h2 class="anchored" data-anchor-id="updated-model">Updated Model</h2>
+</section>
+<section id="updated-model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Updated Model</h1>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -683,12 +723,21 @@ My personal intuition for this, could be wrong.
 <p>And what about generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.</p>
 <p>This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven’t discussed yet. It’s called Time-Steps.</p>
 </section>
-<section id="time-steps" class="level2">
-<h2 class="anchored" data-anchor-id="time-steps">Time-Steps</h2>
+<section id="time-steps" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Time-Steps</h1>
 <p>To start off, time steps has nothing to do with time. It’s just an overhang from the math of the first few papers written on stable defusion.</p>
 <p>It’s just a method of generating random noise for the inputs we pass in to our model. The noise used is varying and the <code>noise schedule</code> is some monotonically decreasing function.</p>
-<p><img src="noise.png" class="img-fluid" alt="Time-Steps v/s noise schedule">[width=70%]</p>
-<p>The algorithm to pick noise is: 1. Randomly choose a number b/w 1-100 2. Look at noise schedule for that number.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="noise.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption class="figure-caption">Time-Steps v/s noise schedule</figcaption>
+</figure>
+</div>
+<p>The algorithm to pick noise is:</p>
+<ol type="1">
+<li>Randomly choose a number b/w 1-100</li>
+<li>Look at noise schedule for that number.</li>
+</ol>
 <p><code>t=1</code> has a lot of noise, 1000 has the least. So the time-step <code>t</code> is pretty much telling us how much noise to use.</p>
 <p>How is this used in practice? Well, we generate noise using the 2 steps above for each image in our mini-batch and we add that generated noise to each image in the mini-batch respectively.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -704,9 +753,41 @@ Note
 <p>These days, it’s widely accepted that the addition of noise to input images using time-steps in stable-diffusion impacted the quality of the generated images negatively and it’s not used in newer diffusion models.</p>
 </div>
 </div>
-
-
 </section>
+<section id="concluding-qna" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Concluding QNA</h1>
+<p>How does whatever we did above tie in with the first equation we had?</p>
+<p><code>Some Noisy Image</code> - <span class="math inline">\(c*\nabla_X P(X)\)</span></p>
+<ol type="1">
+<li><dl>
+<dt>What would the value of <span class="math inline">\(c\)</span> be and is it similar to learning rate?</dt>
+<dd>
+<code>Ans</code>. The value of <span class="math inline">\(c\)</span> depends on the diffusion sampler we use and yes <span class="math inline">\(c\)</span> is kind of like a learning rate.
+</dd>
+</dl></li>
+<li><dl>
+<dt>Why can’t our model jump to the best image in one step?</dt>
+<dd>
+<code>Ans</code>. Because things that look weird and hideous like the image below don’t appear in our training set, and our model doesn’t know what to do with them.
+</dd>
+</dl></li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ugly.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption class="figure-caption">hideous image generated by the model</figcaption>
+</figure>
+</div>
+<p>Our model only knows how to deal with somewhat noisy images and that’s it. It can only denoise whenever it sees some noise.</p>
+<p>That’s why we subtract just a bit of noise (hence the <span class="math inline">\(c\)</span>), so that we are always left with some noisy latent.</p>
+</section>
+<section id="references" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> References</h1>
+<ol type="1">
+<li>fastai practical deep learning for coders</li>
+</ol>
+
+
 </section>
 
 </main> <!-- /main -->
