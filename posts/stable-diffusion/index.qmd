@@ -1,8 +1,8 @@
 ---
-title: 'Stable Diffusion for dummies (written by a dummy)'
-description: 'A little informal guide for diffusion first timers.'
+title: "Noisy to Nice"
+description: "An amateur's guide to stable diffusion."
 author: 'Harsh Sharma'
-date: '10/29/2023'
+date: '10/31/2023'
 image: logo.png
 toc: true
 toc-expand: 2 
