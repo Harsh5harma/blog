@@ -162,35 +162,41 @@ ul.task-list li input[type="checkbox"] {
 <h1>Stable Diffusion for dummies</h1>
 <p>Most people reading this have probably heard of image generation at some point in time. If you’re among those who haven’t, then this journey will be even better as I go in some fair detail to try and explain what it is.</p>
 <p>If at any point, the things I talk about seem hard, don’t be discouraged as it’s more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don’t know enough stuff yet), I think we’ll still get to dip our toes.</p>
-<p><img src="buckleup.gif" class="img-fluid"></p>
+<p><img src="buckleup.gif" class="img-fluid" style="width:40.0%"></p>
 <section id="cool-pics-to-pump-you-up" class="level2">
 <h2 class="anchored" data-anchor-id="cool-pics-to-pump-you-up">Cool pics to pump you up:</h2>
-<p><br>
+<p>I’ll just let the images speak.<br>
+<br>
 </p>
-<p>I’ll just let the images speak.</p>
-<p><br>
-</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img3.jpg" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">cozy warm image of an indian male programmer sitting near a beautiful pond, scenic, matches white background, beautiful</figcaption>
 </figure>
 </div>
-<p><br>
-</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img4.jpg" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Dune arakis in the background. Paul Atreides giving speech. Crowd listening is charged, ominous foreboding theme.</figcaption>
 </figure>
 </div>
-<p><br>
-</p>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img5.jpg" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">inspiring landscape poster showing humanity as a multiplanetary species, sprawling metropolis with large structures, awe-inspiring, 1920x1080 image, outer space</figcaption>
 </figure>
+</div>
+</div>
+</div>
 </div>
 <p><br>
 </p>
@@ -205,7 +211,7 @@ Caution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names I guess. In case you’re a bit rusty with some of the terms, I’ve defined the most common ones below.</p>
+<p>This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names I guess. In case you’re a bit rusty with some of the terms, I’ve defined most used in this blog.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Jargon">
@@ -253,20 +259,40 @@ Jargon
 <td>A measure of how good the model is, chosen to drive training via stochastic gradient descent</td>
 </tr>
 <tr class="even">
+<td>metric</td>
+<td>A human readable way to measure the performance of a model</td>
+</tr>
+<tr class="odd">
 <td>CNN</td>
 <td>Convolutional Neural Network; a type of NN that works well for computer vision tasks</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>embeddings</td>
 <td>A relatively-low dimension space into which we can translate high-dimensional vectors</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>latent</td>
 <td>A latent is a compressed, rough representation of a higher quality image. It consists of the most important features of an image</td>
+</tr>
+<tr class="even">
+<td>latent space</td>
+<td>A feature or embedding space where similar embeddings lie close to each other, and different farther.</td>
 </tr>
 <tr class="odd">
 <td>noise</td>
 <td>Random variation of brightness or color information in images</td>
+</tr>
+<tr class="even">
+<td>U-Net</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VAE</td>
+<td>Variational Auto Encoder</td>
+</tr>
+<tr class="even">
+<td>CLIP</td>
+<td>Contrastive Language-Image Pre-Training, a visual classification NN</td>
 </tr>
 </tbody>
 </table>
@@ -303,13 +329,74 @@ We do the following steps:<br>
 <li>Try making a pixel of X lighter and then check probability</li>
 <li>Do this for every pixel in X (If X is a 28x28 image, that’s 784 times!)</li>
 </ol>
-<p>What we’re calculating is the probability of X being a handwritten digit wrt the gradient of X. This function is called the <code>Score Funtion</code>. <span class="math display">\[\nabla_X P(X)\]</span></p>
-<p><code>Noisy image = Clear Image + Noise</code><br>
+<p>In the above steps, we’re calculating the change in probability of the images being handwritten wrt. to each pixel in the image (784 for a 28x28 image), mathematically it can be represented as follows: <span class="math display">\[\nabla_X P(X)\]</span><br>
 </p>
-<p>Full disclaimer that this is an absurdly simplified explanation of it and the real thing is probably much more different and complicated but, it is a good place to build some intuition from.<br>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\nabla_X P(X)\)</span> is itself a vector of size 784.</p>
+</div>
+</div>
+<p>Next step we do is to multiply <span class="math inline">\(\nabla_X P(X)\)</span> with some constant. <span class="math display">\[c*\nabla_X P(X)\]</span></p>
+<p>Now we subtract the above term from the 784 pixel values of <span class="math inline">\(X\)</span> and in turn increase the output probability, and we do it a bunch of times.<br>
 </p>
-<p>Probability of Noise:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  I(X) --&gt; F((Magic Function))
+  F --&gt; O("P(X)")
+  O --&gt; G["c * ∇ₓP(X)"]
+  G --&gt; S["-"]
+  S --&gt; I
+</pre>
+</div>
+</div>
+</div>
+</div>
 <p><br>
+</p>
+<p>Having gone through all that, it would be an intelligent guess to say that now all we need is for someone to give us the magic function so we can start generating.<br>
+</p>
+<p>But there’s some bad news, nobody is going to hand us any magical function that takes care of everything under the hood. We’re going to have to train our own neural network on a lot of handwritten data to do this for us.<br>
+</p>
+<p>Seems simple enough to do for any seasoned DL practitioner. Alas! There’s a catch. Now I don’t know the why or how, but smarter people than me figured out that it’s pretty much practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t forget that our end goal is making super pretty images like we saw at the start, not some basic digits.</p>
+</div>
+</div>
+<p><br>
+</p>
+<p>So, they decided on an interesting but very logical approach.<br>
+</p>
+<p>Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.<br>
+<code>Noisy Image = Noise + Clear Image</code></p>
+<p>Wkt we can’t predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively Clear Image.<br>
+</p>
+<p>Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it.<br>
+</p>
+<p>This model is very similar to a U-Net</p>
+</section>
+<section id="specifics-of-training" class="level2">
+<h2 class="anchored" data-anchor-id="specifics-of-training">Specifics of Training</h2>
+<p>Probability of Noise:<br>
 </p>
 <div class="cell">
 <div class="cell-output-display">
