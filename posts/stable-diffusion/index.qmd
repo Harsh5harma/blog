@@ -15,9 +15,12 @@ categories:
   - Fastai Part2
 ---
 :::{.callout-caution title="About this blog" collapse="true"}
-This is my first ever blog and it's on a topic I find relatively hard, although I've tried my best to be accurate in whatever I write, It won't be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don't have that necessary but aquired oversight yet. So I'm asking the reader to help me out with any errors they might spot and I'll happily correct whatever it is that I presented wrong.
+This is my first ever blog and it's on a topic I find relatively hard, although I've tried my best to be accurate in whatever I write, it won't be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don't have that aquired oversight yet. So I'm asking the reader to help me out with any errors they might spot and I'll happily correct whatever it is that I presented wrong.
 :::
+\
+
 # Introduction 
+
 Most people reading this have probably heard of image generation at some point in time. If you're among those who haven't, then this journey will be even better as I go in some fair detail to try and explain what it is.
 
 If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet), I think we'll still get to dip our toes.
@@ -26,6 +29,8 @@ If at any point, the things I talk about seem hard, don't be discouraged as it's
 \ 
 
 # Cool AI generated images
+
+
 I'll just let the images speak.  
 \
 
@@ -40,6 +45,7 @@ I'll just let the images speak.
 
 All of the above were generated with simple but detailed text prompts.
 \ 
+
 # Understanding the problem
 
 ::: {.callout-caution}
@@ -71,7 +77,7 @@ If you had to make a guess about how image generation works, what would that gue
 Imagine a magic function that takes in images of handwritten digits as inputs and spits out the probability that the input is a digit. 
 \ 
 
-Let the probability be $P(X)$ for an input Image X.
+Let the probability be $P(X)$ for an input image X.
 ```{mermaid}
 flowchart LR
   I1(X1) --> F((Magic Function))
@@ -90,20 +96,20 @@ We do the following steps:\
 
 1. Try making a pixel of X darker and then check the output probability
 2. Try making a pixel of X lighter and then check probability
-3. Do this for every pixel in X (If X is a 28x28 image, that's 784 times!)
+3. Do this for every pixel in X (If X is a $28*28$ image, that's $784$ times!)
 
-In the above steps, we're calculating the change in probability of the images being handwritten wrt. to each pixel in the image (784 for a 28x28 image), mathematically it can be represented as follows: 
+In the above steps, we're calculating the change in probability of the images being handwritten wrt. to each pixel in the image ($784$ for a $28x28$ image), mathematically it can be represented as follows: 
 $$\nabla_X P(X)$$
 \
 
 ::: {.callout-note}
-$\nabla_X P(X)$ is itself a vector of size 784.
+$\nabla_X P(X)$ is itself a vector of size $784$.
 :::
 
 Next step we do is to multiply $\nabla_X P(X)$ with some constant.
 $$c*\nabla_X P(X)$$
 
-Now we subtract the above term from the 784 pixel values of $X$ and in turn increase the output probability, and we do it a bunch of times.\
+Now we subtract the above term from the $784$ pixel values of $X$ and in turn increase the output probability, and we do it a bunch of times.\
 
 ```{mermaid}
 flowchart LR
@@ -117,21 +123,22 @@ flowchart LR
 
 Having gone through all that, it would be an intelligent guess to say that now all we need is for someone to give us the magic function so we can start generating.\
 
-But there's some bad news, nobody is going to hand us any magical function that takes care of everything under the hood. We're going to have to train our own neural network on a lot of handwritten data to do this for us.\
+But there's some bad news, nobody is going to hand us any magical function that takes care of everything. We're going to have to train our own neural network on a lot of images of handwritten digits.\
 
-Seems simple enough to do for any seasoned DL practitioner. Alas! There's a catch. Now I don't know the why or how, but smarter people than me figured out that it's pretty much practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit. 
+Seems simple enough to do for any seasoned DL practitioner. Alas! There's a catch. Now I don't know the why or how, but smarter people than me figured out that it's practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit. 
 
 :::{.callout-important}
 Don't forget that our end goal is making super pretty images like we saw at the start, not some basic digits.
 :::
 So, they decided on an interesting but very logical approach.\
+\
 
 # An attempt at a basic image generation model
 
 Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.\
 `Noisy Image = Noise + Clear Image`
 
-Wkt we can't predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we'd just have to subtract that predicted noise from the noisy image to end up with a relatively clear Image. \
+Wkt we can't predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we'd just have to subtract that predicted noise from the noisy image to end up with a relatively clear image. \
 
 Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it. \
 
@@ -169,14 +176,14 @@ flowchart LR
   I == "(5)" ==> nI["Less noisy image"]
   nI == "(6)" ==> M
 ```
-
+\
 
 # Problems with our basic model
 
 If we were living in the 90s, the model we built would certainly grab a lot of attention and maybe fame, but we're not. We have overlooked some very grave issues.
 
 1. We're not working with tiny $28x28$ pixel images of handwritten digits here, we're working with $512x512x3$ (High quality RGB) images.
-2. Each of our 9 handwritten digits can be one-hot encoded into a vector but beyond that, we can't one-hot encode infinite possible texts. 
+2. Each of our $9$ handwritten digits can be one-hot encoded into a vector but beyond that, we can't one-hot encode infinite possible texts. 
 
 :::{.callout-note }
 Try one hot encoding any phrase of your choice. It's hard.
@@ -266,6 +273,7 @@ Technically we don't need to use an autoencoder, but it greatly saves on computa
 
 `VAE decoder`: Used during model inference.
 :::
+\ 
 
 ## CLIP
 
@@ -328,6 +336,7 @@ Now as the final step, we sum up all the diagonals together and we also sum up a
 The loss function is known as `Contrastive Loss`, and it should be zero if all our generated embeddings are perfect matches.
 
 So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.
+\
 
 # Updated Model
 
@@ -347,7 +356,7 @@ Now our model can take any image as input with any arbritarily complex text desc
 And what about generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.
 
 This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven't discussed yet. It's called Time-Steps.
-
+\
 
 # Time-Steps
 
@@ -371,6 +380,7 @@ Well, we generate noise using the 2 steps above for each image in our mini-batch
 :::{.callout-note}
 These days, it's widely accepted that the addition of noise to input images using time-steps in stable-diffusion impacted the quality of the generated images negatively and it's not used in newer diffusion models.
 :::
+\ 
 
 # Concluding QNA
 
@@ -391,5 +401,6 @@ How does whatever we did above tie in with the first equation we had?
 
 # References
 
-1. fastai practical deep learning for coders
+1.  fastai practical deep learning for coders 
+2. *hideous image* - fastai part 2 lecture 9's notebook
 

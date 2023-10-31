@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -157,16 +157,17 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a></li>
   <li><a href="#cool-ai-generated-images" id="toc-cool-ai-generated-images" class="nav-link" data-scroll-target="#cool-ai-generated-images"><span class="header-section-number">2</span> Cool AI generated images</a></li>
-  <li><a href="#an-attempt-at-a-basic-image-generation-model" id="toc-an-attempt-at-a-basic-image-generation-model" class="nav-link" data-scroll-target="#an-attempt-at-a-basic-image-generation-model"><span class="header-section-number">3</span> An attempt at a basic image generation model</a></li>
-  <li><a href="#problems-with-our-basic-model" id="toc-problems-with-our-basic-model" class="nav-link" data-scroll-target="#problems-with-our-basic-model"><span class="header-section-number">4</span> Problems with our basic model</a>
+  <li><a href="#understanding-the-problem" id="toc-understanding-the-problem" class="nav-link" data-scroll-target="#understanding-the-problem"><span class="header-section-number">3</span> Understanding the problem</a></li>
+  <li><a href="#an-attempt-at-a-basic-image-generation-model" id="toc-an-attempt-at-a-basic-image-generation-model" class="nav-link" data-scroll-target="#an-attempt-at-a-basic-image-generation-model"><span class="header-section-number">4</span> An attempt at a basic image generation model</a></li>
+  <li><a href="#problems-with-our-basic-model" id="toc-problems-with-our-basic-model" class="nav-link" data-scroll-target="#problems-with-our-basic-model"><span class="header-section-number">5</span> Problems with our basic model</a>
   <ul class="collapse">
-  <li><a href="#vae-variational-auto-encoder" id="toc-vae-variational-auto-encoder" class="nav-link" data-scroll-target="#vae-variational-auto-encoder"><span class="header-section-number">4.1</span> VAE: Variational Auto Encoder</a></li>
-  <li><a href="#clip" id="toc-clip" class="nav-link" data-scroll-target="#clip"><span class="header-section-number">4.2</span> CLIP</a></li>
+  <li><a href="#vae-variational-auto-encoder" id="toc-vae-variational-auto-encoder" class="nav-link" data-scroll-target="#vae-variational-auto-encoder"><span class="header-section-number">5.1</span> VAE: Variational Auto Encoder</a></li>
+  <li><a href="#clip" id="toc-clip" class="nav-link" data-scroll-target="#clip"><span class="header-section-number">5.2</span> CLIP</a></li>
   </ul></li>
-  <li><a href="#updated-model" id="toc-updated-model" class="nav-link" data-scroll-target="#updated-model"><span class="header-section-number">5</span> Updated Model</a></li>
-  <li><a href="#time-steps" id="toc-time-steps" class="nav-link" data-scroll-target="#time-steps"><span class="header-section-number">6</span> Time-Steps</a></li>
-  <li><a href="#concluding-qna" id="toc-concluding-qna" class="nav-link" data-scroll-target="#concluding-qna"><span class="header-section-number">7</span> Concluding QNA</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">8</span> References</a></li>
+  <li><a href="#updated-model" id="toc-updated-model" class="nav-link" data-scroll-target="#updated-model"><span class="header-section-number">6</span> Updated Model</a></li>
+  <li><a href="#time-steps" id="toc-time-steps" class="nav-link" data-scroll-target="#time-steps"><span class="header-section-number">7</span> Time-Steps</a></li>
+  <li><a href="#concluding-qna" id="toc-concluding-qna" class="nav-link" data-scroll-target="#concluding-qna"><span class="header-section-number">8</span> Concluding QNA</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9</span> References</a></li>
   </ul>
 </nav>
 </nav>
@@ -192,10 +193,12 @@ About this blog
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This is my first ever blog and it’s on a topic I find relatively hard, although I’ve tried my best to be accurate in whatever I write, It won’t be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don’t have that necessary but aquired oversight yet. So I’m asking the reader to help me out with any errors they might spot and I’ll happily correct whatever it is that I presented wrong.</p>
+<p>This is my first ever blog and it’s on a topic I find relatively hard, although I’ve tried my best to be accurate in whatever I write, it won’t be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don’t have that aquired oversight yet. So I’m asking the reader to help me out with any errors they might spot and I’ll happily correct whatever it is that I presented wrong.</p>
 </div>
 </div>
 </div>
+<p><br>
+</p>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Most people reading this have probably heard of image generation at some point in time. If you’re among those who haven’t, then this journey will be even better as I go in some fair detail to try and explain what it is.</p>
@@ -239,7 +242,10 @@ About this blog
 </div>
 <p><br>
 </p>
-<p>All of the above were generated with simple but detailed text prompts. &nbsp; # Understanding the problem</p>
+<p>All of the above were generated with simple but detailed text prompts. &nbsp;</p>
+</section>
+<section id="understanding-the-problem" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Understanding the problem</h1>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -344,7 +350,7 @@ Jargon
 </div>
 <p>If you had to make a guess about how image generation works, what would that guess be? Think for a moment. If you’re like me, then you probably thought that we try to get the model to spit out cool looking images, right? Well, not exactly. Bear with me for a moment. &nbsp;</p>
 <p>Imagine a magic function that takes in images of handwritten digits as inputs and spits out the probability that the input is a digit. &nbsp;</p>
-<p>Let the probability be <span class="math inline">\(P(X)\)</span> for an input Image X.</p>
+<p>Let the probability be <span class="math inline">\(P(X)\)</span> for an input image X.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -370,9 +376,9 @@ We do the following steps:<br>
 <ol type="1">
 <li>Try making a pixel of X darker and then check the output probability</li>
 <li>Try making a pixel of X lighter and then check probability</li>
-<li>Do this for every pixel in X (If X is a 28x28 image, that’s 784 times!)</li>
+<li>Do this for every pixel in X (If X is a <span class="math inline">\(28*28\)</span> image, that’s <span class="math inline">\(784\)</span> times!)</li>
 </ol>
-<p>In the above steps, we’re calculating the change in probability of the images being handwritten wrt. to each pixel in the image (784 for a 28x28 image), mathematically it can be represented as follows: <span class="math display">\[\nabla_X P(X)\]</span><br>
+<p>In the above steps, we’re calculating the change in probability of the images being handwritten wrt. to each pixel in the image (<span class="math inline">\(784\)</span> for a <span class="math inline">\(28x28\)</span> image), mathematically it can be represented as follows: <span class="math display">\[\nabla_X P(X)\]</span><br>
 </p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -384,11 +390,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><span class="math inline">\(\nabla_X P(X)\)</span> is itself a vector of size 784.</p>
+<p><span class="math inline">\(\nabla_X P(X)\)</span> is itself a vector of size <span class="math inline">\(784\)</span>.</p>
 </div>
 </div>
 <p>Next step we do is to multiply <span class="math inline">\(\nabla_X P(X)\)</span> with some constant. <span class="math display">\[c*\nabla_X P(X)\]</span></p>
-<p>Now we subtract the above term from the 784 pixel values of <span class="math inline">\(X\)</span> and in turn increase the output probability, and we do it a bunch of times.<br>
+<p>Now we subtract the above term from the <span class="math inline">\(784\)</span> pixel values of <span class="math inline">\(X\)</span> and in turn increase the output probability, and we do it a bunch of times.<br>
 </p>
 <div class="cell">
 <div class="cell-output-display">
@@ -409,9 +415,9 @@ Note
 </p>
 <p>Having gone through all that, it would be an intelligent guess to say that now all we need is for someone to give us the magic function so we can start generating.<br>
 </p>
-<p>But there’s some bad news, nobody is going to hand us any magical function that takes care of everything under the hood. We’re going to have to train our own neural network on a lot of handwritten data to do this for us.<br>
+<p>But there’s some bad news, nobody is going to hand us any magical function that takes care of everything. We’re going to have to train our own neural network on a lot of images of handwritten digits.<br>
 </p>
-<p>Seems simple enough to do for any seasoned DL practitioner. Alas! There’s a catch. Now I don’t know the why or how, but smarter people than me figured out that it’s pretty much practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit.</p>
+<p>Seems simple enough to do for any seasoned DL practitioner. Alas! There’s a catch. Now I don’t know the why or how, but smarter people than me figured out that it’s practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -426,13 +432,14 @@ Important
 </div>
 </div>
 <p>So, they decided on an interesting but very logical approach.<br>
+<br>
 </p>
 </section>
-<section id="an-attempt-at-a-basic-image-generation-model" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> An attempt at a basic image generation model</h1>
+<section id="an-attempt-at-a-basic-image-generation-model" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> An attempt at a basic image generation model</h1>
 <p>Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.<br>
 <code>Noisy Image = Noise + Clear Image</code></p>
-<p>Wkt we can’t predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively clear Image.<br>
+<p>Wkt we can’t predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively clear image.<br>
 </p>
 <p>Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it.<br>
 </p>
@@ -480,13 +487,15 @@ Important
 </div>
 </div>
 </div>
+<p><br>
+</p>
 </section>
-<section id="problems-with-our-basic-model" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Problems with our basic model</h1>
+<section id="problems-with-our-basic-model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Problems with our basic model</h1>
 <p>If we were living in the 90s, the model we built would certainly grab a lot of attention and maybe fame, but we’re not. We have overlooked some very grave issues.</p>
 <ol type="1">
 <li>We’re not working with tiny <span class="math inline">\(28x28\)</span> pixel images of handwritten digits here, we’re working with <span class="math inline">\(512x512x3\)</span> (High quality RGB) images.</li>
-<li>Each of our 9 handwritten digits can be one-hot encoded into a vector but beyond that, we can’t one-hot encode infinite possible texts.</li>
+<li>Each of our <span class="math inline">\(9\)</span> handwritten digits can be one-hot encoded into a vector but beyond that, we can’t one-hot encode infinite possible texts.</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -503,8 +512,8 @@ Note
 </div>
 <p>Well then, is our case hopeless here? Were the images I showed faked? No, for we have the <code>VAE autoencoder</code> and the <code>CLIP</code> multimodal encoders and decoders to the rescue. Let’s understand what they are and get into how they solve both of our problems.<br>
 </p>
-<section id="vae-variational-auto-encoder" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="vae-variational-auto-encoder"><span class="header-section-number">4.1</span> VAE: Variational Auto Encoder</h2>
+<section id="vae-variational-auto-encoder" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="vae-variational-auto-encoder"><span class="header-section-number">5.1</span> VAE: Variational Auto Encoder</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="VAE.png" class="img-fluid figure-img"></p>
@@ -636,9 +645,10 @@ Note
 <p><code>VAE decoder</code>: Used during model inference.</p>
 </div>
 </div>
+<p>&nbsp;</p>
 </section>
-<section id="clip" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="clip"><span class="header-section-number">4.2</span> CLIP</h2>
+<section id="clip" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="clip"><span class="header-section-number">5.2</span> CLIP</h2>
 <p>Ignore the weird name for now and focus on the second problem we had. Which was, finding a way to create embeddings for any possible text and not just the digits b/w 0 to 9 so we could guide the model.</p>
 <p>What if we had a model that spat out a vector representation of every complex sentence, such that we could pass it with our <code>latent tensor</code> as <code>guidance</code>. And what if, that model created textual embeddings in such a way, that they ended up being close to the <code>latent tensor</code>’s embedding in the <code>latent space</code>.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="My personal intuition for this, could be wrong.">
@@ -700,11 +710,12 @@ My personal intuition for this, could be wrong.
 <li><span class="math inline">\(Loss = Sum_d - Sum_nd\)</span></li>
 </ol>
 <p>The loss function is known as <code>Contrastive Loss</code>, and it should be zero if all our generated embeddings are perfect matches.</p>
-<p>So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.</p>
+<p>So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.<br>
+</p>
 </section>
 </section>
-<section id="updated-model" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Updated Model</h1>
+<section id="updated-model" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Updated Model</h1>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -724,10 +735,11 @@ My personal intuition for this, could be wrong.
 </div>
 <p>Now our model can take any image as input with any arbritarily complex text describing what the image is about and our model would be able to use that as guidance to denoise input latents better.</p>
 <p>And what about generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.</p>
-<p>This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven’t discussed yet. It’s called Time-Steps.</p>
+<p>This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven’t discussed yet. It’s called Time-Steps.<br>
+</p>
 </section>
-<section id="time-steps" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Time-Steps</h1>
+<section id="time-steps" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Time-Steps</h1>
 <p>To start off, time steps has nothing to do with time. It’s just an overhang from the math of the first few papers written on stable defusion.</p>
 <p>It’s just a method of generating random noise for the inputs we pass in to our model. The noise used is varying and the <code>noise schedule</code> is some monotonically decreasing function.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -756,9 +768,10 @@ Note
 <p>These days, it’s widely accepted that the addition of noise to input images using time-steps in stable-diffusion impacted the quality of the generated images negatively and it’s not used in newer diffusion models.</p>
 </div>
 </div>
+<p>&nbsp;</p>
 </section>
-<section id="concluding-qna" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Concluding QNA</h1>
+<section id="concluding-qna" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Concluding QNA</h1>
 <p>How does whatever we did above tie in with the first equation we had?</p>
 <p><code>Some Noisy Image</code> - <span class="math inline">\(c*\nabla_X P(X)\)</span></p>
 <ol type="1">
@@ -784,10 +797,11 @@ Note
 <p>Our model only knows how to deal with somewhat noisy images and that’s it. It can only denoise whenever it sees some noise.</p>
 <p>That’s why we subtract just a bit of noise (hence the <span class="math inline">\(c\)</span>), so that we are always left with some noisy latent.</p>
 </section>
-<section id="references" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> References</h1>
+<section id="references" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> References</h1>
 <ol type="1">
 <li>fastai practical deep learning for coders</li>
+<li><em>hideous image</em> - fastai part 2 lecture 9’s notebook</li>
 </ol>
 
 

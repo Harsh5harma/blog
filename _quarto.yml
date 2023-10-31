@@ -12,7 +12,7 @@ website:
         href: https://twitter.com/HowdySharma
 format:
   html:
-    theme: slate
+    theme: journal
     css: styles.css
 
 
