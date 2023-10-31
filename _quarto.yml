@@ -3,6 +3,7 @@ project:
   output-dir: docs
 website:
   title: "Theory Threads and Dev Doodles"
+  google-analytics: "G-493N2M31QW"
   navbar:
     right:
       - about.qmd
