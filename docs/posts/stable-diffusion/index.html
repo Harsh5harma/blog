@@ -193,7 +193,7 @@ About this blog
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>This is my first ever blog and it’s on a topic I find relatively hard, although I’ve tried my best to be accurate in whatever I write, it won’t be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don’t have that aquired oversight yet. So I’m asking the reader to help me out with any errors they might spot and I’ll happily correct whatever it is that I presented wrong.</p>
+<p>This is my first ever blog, and it’s on a topic I find relatively hard. Although I’ve tried my best to be accurate in whatever I write, it won’t be surprising if this entire blog is riddled with inaccuracies and straight-up incorrect stuff. I simply don’t have that necessary oversight yet. So I’m asking the reader to help me out with any errors they might spot, and I’ll happily correct whatever it is that I presented wrong.</p>
 </div>
 </div>
 </div>
@@ -201,8 +201,8 @@ About this blog
 </p>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>Most people reading this have probably heard of image generation at some point in time. If you’re among those who haven’t, then this journey will be even better as I go in some fair detail to try and explain what it is.</p>
-<p>If at any point, the things I talk about seem hard, don’t be discouraged as it’s more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don’t know enough stuff yet), I think we’ll still get to dip our toes.</p>
+<p>Most people reading this have probably heard of image generation at some point in time. If you’re among those who haven’t, then this journey will be even better as I go into some fair detail to try and explain what it is.</p>
+<p>If, at any point, the things I talk about seem hard, don’t be discouraged, as it’s more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep end (I don’t know enough stuff yet), I think we’ll still get to dip our toes.</p>
 <p><img src="buckleup.gif" class="img-fluid" style="width:40.0%"> &nbsp;</p>
 </section>
 <section id="cool-ai-generated-images" class="level1" data-number="2">
@@ -256,7 +256,7 @@ Caution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names I guess. In case you’re a bit rusty with some of the terms, I’ve defined most used in this blog.</p>
+<p>This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names, I guess. In case you’re a bit rusty with some of the terms, I’ve defined the most commonly used in this blog.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled" title="Jargon">
@@ -348,7 +348,7 @@ Jargon
 </div>
 </div>
 </div>
-<p>If you had to make a guess about how image generation works, what would that guess be? Think for a moment. If you’re like me, then you probably thought that we try to get the model to spit out cool looking images, right? Well, not exactly. Bear with me for a moment. &nbsp;</p>
+<p>If you had to make a guess about how image generation works, what would that guess be? Think for a moment. If you’re like me, then you probably thought that we tried to get the model to spit out cool-looking images, right? Well, not exactly. Bear with me for a moment. &nbsp;</p>
 <p>Imagine a magic function that takes in images of handwritten digits as inputs and spits out the probability that the input is a digit. &nbsp;</p>
 <p>Let the probability be <span class="math inline">\(P(X)\)</span> for an input image X.</p>
 <div class="cell">
@@ -378,7 +378,7 @@ We do the following steps:<br>
 <li>Try making a pixel of X lighter and then check probability</li>
 <li>Do this for every pixel in X (If X is a <span class="math inline">\(28*28\)</span> image, that’s <span class="math inline">\(784\)</span> times!)</li>
 </ol>
-<p>In the above steps, we’re calculating the change in probability of the images being handwritten wrt. to each pixel in the image (<span class="math inline">\(784\)</span> for a <span class="math inline">\(28x28\)</span> image), mathematically it can be represented as follows: <span class="math display">\[\nabla_X P(X)\]</span><br>
+<p>In the above steps, we’re calculating the change in probability of the images being handwritten with respect to each pixel in the image (<span class="math inline">\(784\)</span> for a <span class="math inline">\(28x28\)</span> image), mathematically, it can be represented as follows: <span class="math display">\[\nabla_X P(X)\]</span><br>
 </p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -393,8 +393,8 @@ Note
 <p><span class="math inline">\(\nabla_X P(X)\)</span> is itself a vector of size <span class="math inline">\(784\)</span>.</p>
 </div>
 </div>
-<p>Next step we do is to multiply <span class="math inline">\(\nabla_X P(X)\)</span> with some constant. <span class="math display">\[c*\nabla_X P(X)\]</span></p>
-<p>Now we subtract the above term from the <span class="math inline">\(784\)</span> pixel values of <span class="math inline">\(X\)</span> and in turn increase the output probability, and we do it a bunch of times.<br>
+<p>Next step is to multiply <span class="math inline">\(\nabla_X P(X)\)</span> with some constant. <span class="math display">\[c*\nabla_X P(X)\]</span></p>
+<p>Now subtract the above term from the <span class="math inline">\(784\)</span> pixel values of <span class="math inline">\(X\)</span>, and in turn increase the output probability, and we do it a bunch of times.<br>
 </p>
 <div class="cell">
 <div class="cell-output-display">
@@ -415,9 +415,9 @@ Note
 </p>
 <p>Having gone through all that, it would be an intelligent guess to say that now all we need is for someone to give us the magic function so we can start generating.<br>
 </p>
-<p>But there’s some bad news, nobody is going to hand us any magical function that takes care of everything. We’re going to have to train our own neural network on a lot of images of handwritten digits.<br>
+<p>But there’s some bad news: nobody is going to hand us any magical function that takes care of everything. We’re going to have to train our own neural network on a lot of images of handwritten digits.<br>
 </p>
-<p>Seems simple enough to do for any seasoned DL practitioner. Alas! There’s a catch. Now I don’t know the why or how, but smarter people than me figured out that it’s practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit.</p>
+<p>It seems simple enough to do for any seasoned DL practitioner. Alas! There’s a catch. Now I don’t know why or how, but smarter people than me figured out that it’s practically impossible, if not insanely hard, to create a metric that tells us how much our image looks like a specific digit.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -428,7 +428,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Don’t forget that our end goal is making super pretty images like we saw at the start, not some basic digits.</p>
+<p>Don’t forget that our end goal is to make super pretty images like we saw at the start, not some basic digits. specific digit.</p>
 </div>
 </div>
 <p>So, they decided on an interesting but very logical approach.<br>
@@ -437,11 +437,12 @@ Important
 </section>
 <section id="an-attempt-at-a-basic-image-generation-model" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> An attempt at a basic image generation model</h1>
-<p>Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.<br>
-<code>Noisy Image = Noise + Clear Image</code></p>
-<p>Wkt we can’t predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively clear image.<br>
+<p>Every image we train on can be overlayed with some random amounts of noise; the result would be a noisier image, of course, but now we have some place to start with.<br>
 </p>
-<p>Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it.<br>
+<p><code>Noisy Image = Noise + Clear Image</code></p>
+<p>We can’t predict how much an image looks like something, but it turns out we can try and predict how noisy an image is, and then, using basic arithmetic, we can see that we’d just have to subtract that predicted noise from the noisy image to end up with a relatively clear image.<br>
+</p>
+<p>Passing in a starting picture and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it.<br>
 </p>
 <p>And once it has trained over enough inputs, it can generate new images for us because it now knows how to denoise inputs.</p>
 <p>So we can use a model that works roughly in the fashion shown below:</p>
@@ -465,11 +466,11 @@ Important
 </p>
 <p>Although the model above is decent, it can be optimised further using the concept of <em>guidance</em>. I’ll explain.<br>
 </p>
-<p>Currently, at the start of the training process, we’re leaving our model in the dark really with no clue about what digit it’s supposed to identify since we’re passing in somewhat noisy inputs.<br>
+<p>Currently, at the start of the training process, we’re leaving our model in the dark, really with no clue about what digit it’s supposed to identify since we’re passing in somewhat noisy inputs.<br>
 </p>
-<p>Say our model knew what it was supposed to look for, wouldn’t it make logical sense then to pass in that thing? That’s what guidance does. Along with the input (obviously), we also pass the digit our model is supposed to remove noise from.<br>
+<p>If our model knew what it was supposed to look for, wouldn’t it make logical sense to pass in that thing? That’s what guidance does. Along with the input (obviously), we also pass the digit our model is supposed to remove noise from.<br>
 </p>
-<p>Now once the model is trained, <em>guidance</em> would help generate better new images, because it can denoise better! Duh. So our current model would actually end up looking more like:</p>
+<p>Now, once the model is trained, <em>guidance</em> would help generate better new images because it can denoise better! Duh. So our current model would actually end up looking more like:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -494,8 +495,8 @@ Important
 <h1 data-number="5"><span class="header-section-number">5</span> Problems with our basic model</h1>
 <p>If we were living in the 90s, the model we built would certainly grab a lot of attention and maybe fame, but we’re not. We have overlooked some very grave issues.</p>
 <ol type="1">
-<li>We’re not working with tiny <span class="math inline">\(28x28\)</span> pixel images of handwritten digits here, we’re working with <span class="math inline">\(512x512x3\)</span> (High quality RGB) images.</li>
-<li>Each of our <span class="math inline">\(9\)</span> handwritten digits can be one-hot encoded into a vector but beyond that, we can’t one-hot encode infinite possible texts.</li>
+<li>We’re not working with tiny <span class="math inline">\(28x28\)</span> pixel images of handwritten digits here; we’re working with <span class="math inline">\(512x512x3\)</span> (high-quality RGB) images.</li>
+<li>Each of our <span class="math inline">\(9\)</span> handwritten digits can be one-hot encoded into a vector, but beyond that, we can’t one-hot encode infinite possible texts.</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -510,7 +511,7 @@ Note
 <p>Try one hot encoding any phrase of your choice. It’s hard.</p>
 </div>
 </div>
-<p>Well then, is our case hopeless here? Were the images I showed faked? No, for we have the <code>VAE autoencoder</code> and the <code>CLIP</code> multimodal encoders and decoders to the rescue. Let’s understand what they are and get into how they solve both of our problems.<br>
+<p>Well, then, is our case hopeless here? Were the images I showed faked? No, for we have the <code>VAE autoencoder</code> and the <code>CLIP</code>&nbsp; encoders and decoders to the rescue. Let’s understand what they are and get into how they solve both of our problems.<br>
 </p>
 <section id="vae-variational-auto-encoder" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="vae-variational-auto-encoder"><span class="header-section-number">5.1</span> VAE: Variational Auto Encoder</h2>
@@ -521,10 +522,12 @@ Note
 </figure>
 </div>
 <p><br>
-In the context of our model, VAE is just a data compression and decompression algorithm with a fancy name.&nbsp;</p>
-<p>VAE tries that what came in as input is the same as what comes out, it’s architecture might look similar to U-Net but VAE does not have cross connections unlike the former and VAE is also an autoencoder.&nbsp;</p>
-<p>The special thing about autoencoders is that they can split in half and we can just use the encoder and decoder seperately.</p>
-<p>The encoder serves as a great compression method and on the <span class="math inline">\(512*512*3\)</span> example it reduces the pixel count from <span class="math inline">\(786,432\)</span> to a mere <span class="math inline">\(16,384\)</span>. A size reduction of <span class="math inline">\(48\)</span> times.</p>
+In the context of our model, VAE is just a data compression and decompression algorithm with a fancy name.<br>
+</p>
+<p>VAE tries to ensure that what comes in as input is the same as what comes out. It’s architecture might look similar to U-Net, but VAE does not have cross-connections, unlike the former, and VAE is also an autoencoder.<br>
+</p>
+<p>The special thing about autoencoders is that they can be split in half, and we can just use the encoder and decoder separately.</p>
+<p>The encoder serves as a great compression method, and on the <span class="math inline">\(512*512*3\)</span> example, it reduces the pixel count from <span class="math inline">\(786,432\)</span> to a mere <span class="math inline">\(16,384\)</span>. A size reduction of <span class="math inline">\(48\)</span> times.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -535,15 +538,15 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The encoder peforms compression by doing stride 2 convolutions and doubling the channel size, this helps in increasing the complexity and expressive power of the model without increasing the spatial feature maps.</p>
-<p>So, a stride 2 convolution reduces the spatial dimensions and memory usage and additional channels give the model more capacity to learn.</p>
+<p>The encoder performs compression by doing stride 2 convolutions and doubling the channel size; this helps in increasing the complexity and expressive power of the model without increasing the spatial feature maps.</p>
+<p>So, a stride 2 convolution reduces the spatial dimensions and memory usage, and additional channels give the model more capacity to learn.</p>
 </div>
 </div>
-<p>And if we have a copy of the decoder, we can feed the encoded latent to it and end up with the high resolution image again.</p>
-<p>This model serves a great compression algorithm because it’s been trained on millions upon millions of input images, at the start of its training process, the VAE spits out random noise out of it’s decoder but if we use the humble <code>Mean Squared Error</code> function on the encoder input and decoder output to train the VAE reduce the loss.</p>
-<p>How it works is interesting though. VAE, is built up of two main components and each of them can work independently once the autoencoder has been trained.<br>
+<p>And if we have a copy of the decoder, we can feed the encoded latent to it and end up with the high-resolution image again.</p>
+<p>This model serves as a great compression algorithm because it’s been trained on millions upon millions of input images. At the start of its training process, the VAE spits out random noise out of its decoder, but if we use the humble <code>Mean Squared Error</code> function on the encoder input and decoder output to train the VAE, we reduce the loss.</p>
+<p>How it works is interesting, though. VAE is built up of two main components, and each of them can work independently once the autoencoder has been trained.<br>
 </p>
-<p>The first part consists of the Encoder. This is where compression happens, we start with a high resolution image of <span class="math inline">\(512*512*3\)</span> and keep performing convolutions of stride 2 and doubling the channels till we end up with a relatively much lower dimension image. This image is called the <code>latent</code> and the multi-dimensional space it exists in is called the <code>latent space</code>.</p>
+<p>The first part consists of the encoder. This is where compression happens. We start with a high-resolution image of <span class="math inline">\(512*512*3\)</span> and keep performing convolutions of stride 2 and doubling the channels till we end up with a relatively lower-dimensional image. This image is called the <code>latent</code> and the multi-dimensional space it exists in is called the <code>latent space</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -569,7 +572,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A stride two convolution means that at each step, the convolution skips a column and a row. So for a <span class="math inline">\(4*4\)</span> grid, a stride 2 convolution would bring the size down</p>
+<p>A stride two convolution means that at each step, the convolution skips a column and a row. So for a <span class="math inline">\(4*4\)</span> grid, a stride 2 convolution would bring the size down.</p>
 </div>
 </div>
 <div class="cell">
@@ -584,8 +587,8 @@ Note
 </div>
 </div>
 </div>
-<p>Now let’s get back to what we need VAE for, the size problems our older model had. Since we can compress image sizes by godly amounts, there’s no doubt, that we’ll train the U-Net model with these encoded images (latents).</p>
-<p>So, if our U-Net needs to be trained on 10 million images, we’ll pass each one of them through <code>VAE's encoder</code> first, and then we feed these latents into the U-Net 100s to 1000s of times.</p>
+<p>Now let’s get back to what we need VAE for: the size problems our older model had. Since we can compress image sizes by godly amounts, there’s no doubt that we’ll train the U-Net model with these encoded images (latents).</p>
+<p>So, if our U-Net needs to be trained on 10 million images, we’ll pass each one of them through <code>VAE's encoder</code> first, and then we feed these latents into the U-Net hundreds to thousands of times.</p>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -617,7 +620,7 @@ Caution
 </div>
 </div>
 </div>
-<p>Wouldn’t this new latent based model spit out latents too? Yes, it will but we don’t forget that we also have the other half of our autoencoder. The <code>VAE decoder</code> will be able to take in the generated latent as input and then output a high resolution image. It’d be like there wasn’t any compression-decompression to begin with.</p>
+<p>Wouldn’t this new latent-based model spit out latents too? Yes, it will, but we don’t forget that we also have the other half of our autoencoder. The <code>VAE decoder</code> will be able to take in the generated latent as input and then output a high-resolution image. It’d be like there wasn’t any compression or decompression to begin with.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -630,7 +633,7 @@ Caution
 </div>
 </div>
 </div>
-<p>Technically we don’t need to use an autoencoder, but it greatly saves on computation necessary and the time it takes to generate an image as well as the modern training itself.</p>
+<p>Technically, we don’t need to use an autoencoder, but it greatly saves on the computation necessary and the time it takes to generate an image, as well as the modern training itself.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -649,8 +652,8 @@ Note
 </section>
 <section id="clip" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="clip"><span class="header-section-number">5.2</span> CLIP</h2>
-<p>Ignore the weird name for now and focus on the second problem we had. Which was, finding a way to create embeddings for any possible text and not just the digits b/w 0 to 9 so we could guide the model.</p>
-<p>What if we had a model that spat out a vector representation of every complex sentence, such that we could pass it with our <code>latent tensor</code> as <code>guidance</code>. And what if, that model created textual embeddings in such a way, that they ended up being close to the <code>latent tensor</code>’s embedding in the <code>latent space</code>.</p>
+<p>Ignore the weird name for now and focus on the second problem we had. Which was finding a way to create embeddings for any possible text and not just the digits b/w 0 to 9 so we could guide the model.</p>
+<p>What if we had a model that spat out a vector representation of every complex sentence, such that we could pass it with our <code>latent tensor</code> as ‘guidance’? And what if that model created textual embeddings in such a way that they ended up being close to the <code>latent tensor</code>‘s embedding in the `latent space’?</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="My personal intuition for this, could be wrong.">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -663,14 +666,14 @@ My personal intuition for this, could be wrong.
 </div>
 <div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>If the above paragraph was hard to get, I can explain with a more grounded example. I’m aware that the human brain and neural networks are not at all the same in the manner with which they function, and are designed but I couldn’t think of an easier example, so bear with me.</p>
-<p>Imagine a <em>guitar with a few broken strings</em>, after reading this text could your brain think up of an image showing the same? It might not be super clear, 4k quality or something, but you could in your head think of an image that had the most important features that a <em>guitar with a few broken strings</em> might have.</p>
-<p>I think that a <code>latent space</code> is just that neural network analog for that headspace we go into. Our brain was able to process and break-down the text and then also match it to a visual representation.</p>
-<p>So we essentially need a model, that is capable of doing something similar to this in essence. CLIP is one such model that does this job.</p>
+<p>If the above paragraph was hard to understand, I can explain with a more grounded example. I’m aware that the human brain and neural networks are not at all the same in the manner in which they function and are designed, but I couldn’t think of an easier example, so bear with me.</p>
+<p>Imagine a <em>guitar with a few broken strings</em>, after reading this text, could your brain think of an image showing the same? It might not be super clear, 4K quality, or something, but you could in your head think of an image that had the most important features that a <em>guitar with a few broken strings</em> might have.</p>
+<p>I think that a <code>latent space</code> is just that neural network analogue for that headspace we go into. Our brain was able to process and break down the text and then also match it to a visual representation.</p>
+<p>In essence, we need a model that is capable of doing something similar to this. CLIP is one such model that does this job.</p>
 </div>
 </div>
 </div>
-<p>CLIP is made up of two models. A Text-encoder and an Image-encoder.</p>
+<p>CLIP is made up of two models. A text encoder and an image encoder.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -687,30 +690,31 @@ My personal intuition for this, could be wrong.
 </div>
 </div>
 </div>
-<p>Both encoders need to be trained first with randomly selected weights. The ‘CL’ in CLIP stands for <code>contrastive loss</code> and that’s what helps in training both the text and image encoders. Fancy name apart, training process is quite simple.</p>
+<p>Both encoders need to be trained first with randomly selected weights. The ‘CL’ in CLIP stands for `contrastive loss’, and that’s what helps in training both the text and image encoders. Fancy name apart, the training process is quite simple.</p>
 <p>Let’s take three random text prompts:</p>
 <p><code>Text 1</code>: <em>Muscular Hen’s caricature</em></p>
 <p><code>Text 2</code>: <em>Broken Egg</em></p>
 <p><code>Text 3</code>: <em>Senior man with long hair and beard portrait</em></p>
-<p>We’ll call the vector representation of each text prompt as <code>T1</code>, <code>T2</code>, <code>T3</code> respectively.</p>
-<p>We also now have 3 images of the same, and we’ll use <code>I1</code>, <code>I2</code>, <code>I3</code> to represent the vector representations of these images. All of these vector representations were generated by throwing them into the CLIP encoders (and they’re random right now because we haven’t trained CLIP yet).</p>
-<p>Now, we can make a grid with the Image vectors lined up along the columns and the Text vectors lined along the rows.</p>
+<p>We’ll call the vector representation of each text prompt <code>T1</code>, <code>T2</code>, and <code>T3</code>, respectively.</p>
+<p>We also now have 3 images of the same, and we’ll use <code>I1</code>, ‘I2’, and <code>I3</code> to represent the vector representations of these images. All of these vector representations were generated by throwing them into the CLIP encoders (and they’re random right now because we haven’t trained CLIP yet).</p>
+<p>Now, we can make a grid with the image vectors lined up along the columns and the text vectors lined up along the rows.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="CLIP.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Training Grid</figcaption>
 </figure>
 </div>
-<p>Each cell of the grid contains the dot product of the two representation vectors. The dot product of vectors that actually describe an image with the right text will be the highest, i.e.&nbsp;of the diagonal cells.</p>
-<p>The non-diagonal cells on the other hand, should have low values once the model is trained, because the embeddings are far apart from each other in the <code>latent-space</code>. The text representation vector is not correct for the image.</p>
-<p>Now as the final step, we sum up all the diagonals together and we also sum up all the non-diagonals separately.</p>
+<p>Each cell of the grid contains the dot product of the two representation vectors. The dot product of vectors that actually describe an image with the right text will be the highest, i.e., of the diagonal cells.</p>
+<p>The non-diagonal cells, on the other hand, should have low values once the model is trained because the embeddings are far apart from each other in the <code>latent-space</code>. The text representation vector is not correct for the image.</p>
+<p>As the final step, we sum up all the diagonals together, and we also sum up all the non-diagonals separately.</p>
 <ol type="1">
 <li><span class="math inline">\(Sum_d = \text{Sum of Diagonals}\)</span></li>
 <li><span class="math inline">\(Sum_nd = \text{Sum of Non-Diagonals}\)</span></li>
 <li><span class="math inline">\(Loss = Sum_d - Sum_nd\)</span></li>
 </ol>
 <p>The loss function is known as <code>Contrastive Loss</code>, and it should be zero if all our generated embeddings are perfect matches.</p>
-<p>So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.<br>
+<p>The loss function is known as <code>Contrastive Loss</code>, and it should be zero if all our generated embeddings are perfect matches.</p>
+<p>So, to conclude this section, CLIP is a multi-modal model, as our embeddings all share the same space, and it helps us solve our second problem of not having a way to create embeddings for complex text.<br>
 </p>
 </section>
 </section>
@@ -733,28 +737,28 @@ My personal intuition for this, could be wrong.
 </div>
 </div>
 </div>
-<p>Now our model can take any image as input with any arbritarily complex text describing what the image is about and our model would be able to use that as guidance to denoise input latents better.</p>
-<p>And what about generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.</p>
-<p>This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven’t discussed yet. It’s called Time-Steps.<br>
+<p>Now our model can take any image as input with any arbitrarily complex text describing what the image is about, and our model would be able to use that as guidance to denoise input latents better.</p>
+<p>And what about image generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.</p>
+<p>This model could serve as the final one, but in practice, stable diffusion has one extra implementation detail that we haven’t discussed yet. It’s called time steps.<br>
 </p>
 </section>
 <section id="time-steps" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Time-Steps</h1>
-<p>To start off, time steps has nothing to do with time. It’s just an overhang from the math of the first few papers written on stable defusion.</p>
-<p>It’s just a method of generating random noise for the inputs we pass in to our model. The noise used is varying and the <code>noise schedule</code> is some monotonically decreasing function.</p>
+<p>To start off, time steps have nothing to do with time. It’s just an overhang from the math of the first few papers written on stable defusion.</p>
+<p>It’s just a method of generating random noise for the inputs we pass into our model. The noise used is varying, and the <code>noise schedule</code> is some monotonically decreasing function.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="noise.png" class="img-fluid figure-img" style="width:70.0%"></p>
 <figcaption class="figure-caption">Time-Steps v/s noise schedule</figcaption>
 </figure>
 </div>
-<p>The algorithm to pick noise is:</p>
+<p>The algorithm to pick up noise is:</p>
 <ol type="1">
-<li>Randomly choose a number b/w 1-100</li>
-<li>Look at noise schedule for that number.</li>
+<li>Randomly choose a number between 1 and 100.</li>
+<li>Look at the noise schedule for that number.</li>
 </ol>
-<p><code>t=1</code> has a lot of noise, 1000 has the least. So the time-step <code>t</code> is pretty much telling us how much noise to use.</p>
-<p>How is this used in practice? Well, we generate noise using the 2 steps above for each image in our mini-batch and we add that generated noise to each image in the mini-batch respectively.</p>
+<p><code>t=1</code> has a lot of noise; 1000 has the least. So the time step <code>t</code> is pretty much telling us how much noise to use.</p>
+<p>How is this used in practice? Well, we generate noise using the 2 steps above for each image in our mini-batch, and we add that generated noise to each image in the mini-batch, respectively.each image in our mini-batch and we add that generated noise to each image in the mini-batch respectively.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -765,7 +769,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>These days, it’s widely accepted that the addition of noise to input images using time-steps in stable-diffusion impacted the quality of the generated images negatively and it’s not used in newer diffusion models.</p>
+<p>These days, it’s widely accepted that the addition of noise to input images using time steps in stable diffusion impacted the quality of the generated images negatively, and it’s not used in newer diffusion models.</p>
 </div>
 </div>
 <p>&nbsp;</p>
@@ -775,27 +779,14 @@ Note
 <p>How does whatever we did above tie in with the first equation we had?</p>
 <p><code>Some Noisy Image</code> - <span class="math inline">\(c*\nabla_X P(X)\)</span></p>
 <ol type="1">
-<li><dl>
-<dt>What would the value of <span class="math inline">\(c\)</span> be and is it similar to learning rate?</dt>
-<dd>
-<code>Ans</code>. The value of <span class="math inline">\(c\)</span> depends on the diffusion sampler we use and yes <span class="math inline">\(c\)</span> is kind of like a learning rate.
-</dd>
-</dl></li>
-<li><dl>
-<dt>Why can’t our model jump to the best image in one step?</dt>
-<dd>
-<code>Ans</code>. Because things that look weird and hideous like the image below don’t appear in our training set, and our model doesn’t know what to do with them.
-</dd>
-</dl></li>
+<li><p>What would the value of <span class="math inline">\(c\)</span> be, and is it similar to the learning rate?</p>
+<p><code>Ans</code>. The value of <span class="math inline">\(c\)</span> depends on the diffusion sampler we use, and yes, <span class="math inline">\(c\)</span> is kind of like a learning rate.</p></li>
+<li><p><strong>Why can’t our model jump to the best image in one step?</strong></p>
+<p><code>Ans</code>. Because things that look weird and hideous, like the image below don’t appear in our training set, and our model doesn’t know what to do with them.</p>
+<p><img src="ugly.png" class="img-fluid" style="width:70.0%" alt="hideous image generated by the model"> &nbsp;</p>
+<p>Our model only knows how to deal with somewhat noisy images, and that’s it It can only denoise whenever it sees some noise.</p>
+<p>That’s why we subtract just a bit of noise (hence the <span class="math inline">\(c\)</span>), so that we are always left with some noisy latent.</p></li>
 </ol>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="ugly.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<figcaption class="figure-caption">hideous image generated by the model</figcaption>
-</figure>
-</div>
-<p>Our model only knows how to deal with somewhat noisy images and that’s it. It can only denoise whenever it sees some noise.</p>
-<p>That’s why we subtract just a bit of noise (hence the <span class="math inline">\(c\)</span>), so that we are always left with some noisy latent.</p>
 </section>
 <section id="references" class="level1" data-number="9">
 <h1 data-number="9"><span class="header-section-number">9</span> References</h1>

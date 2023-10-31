@@ -15,15 +15,15 @@ categories:
   - Fastai Part2
 ---
 :::{.callout-caution title="About this blog" collapse="true"}
-This is my first ever blog and it's on a topic I find relatively hard, although I've tried my best to be accurate in whatever I write, it won't be surprising if this entire blog was riddled with inaccuracies and straight up incorrect stuff. I simply don't have that aquired oversight yet. So I'm asking the reader to help me out with any errors they might spot and I'll happily correct whatever it is that I presented wrong.
+This is my first ever blog, and it's on a topic I find relatively hard. Although I've tried my best to be accurate in whatever I write, it won't be surprising if this entire blog is riddled with inaccuracies and straight-up incorrect stuff. I simply don't have that necessary oversight yet. So I'm asking the reader to help me out with any errors they might spot, and I'll happily correct whatever it is that I presented wrong.
 :::
 \
 
 # Introduction 
 
-Most people reading this have probably heard of image generation at some point in time. If you're among those who haven't, then this journey will be even better as I go in some fair detail to try and explain what it is.
+Most people reading this have probably heard of image generation at some point in time. If you're among those who haven't, then this journey will be even better as I go into some fair detail to try and explain what it is.
 
-If at any point, the things I talk about seem hard, don't be discouraged as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep-end (I don't know enough stuff yet), I think we'll still get to dip our toes.
+If, at any point, the things I talk about seem hard, don't be discouraged, as it's more of a shock if you find this easy to read. Nevertheless, buckle up because although we might not go all the way into the deep end (I don't know enough stuff yet), I think we'll still get to dip our toes.
 
 ![](buckleup.gif){width=40%}
 \ 
@@ -49,8 +49,9 @@ All of the above were generated with simple but detailed text prompts.
 # Understanding the problem
 
 ::: {.callout-caution}
-This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names I guess. In case you're a bit rusty with some of the terms, I've defined most used in this blog.
+This blog and deep learning in general have the tendency to contain lots of technical jargon. It might be something stupidly simple once you actually learn what it is, but for some reason the DL community likes cool names, I guess. In case you're a bit rusty with some of the terms, I've defined the most commonly used in this blog.
 :::
+
 ::: {.callout-note collapse='true' title='Jargon' }
 |Term | Meaning |
 |-----|------------|
@@ -71,7 +72,7 @@ This blog and deep learning in general have the tendency to contain lots of tech
 |multimodal learning| A type of learning where the model is trained to understand and work with multiple forms of input data |
 :::
 
-If you had to make a guess about how image generation works, what would that guess be? Think for a moment. If you're like me, then you probably thought that we try to get the model to spit out cool looking images, right? Well, not exactly. Bear with me for a moment.
+If you had to make a guess about how image generation works, what would that guess be? Think for a moment. If you're like me, then you probably thought that we tried to get the model to spit out cool-looking images, right? Well, not exactly. Bear with me for a moment.
 \ 
 
 Imagine a magic function that takes in images of handwritten digits as inputs and spits out the probability that the input is a digit. 
@@ -98,7 +99,7 @@ We do the following steps:\
 2. Try making a pixel of X lighter and then check probability
 3. Do this for every pixel in X (If X is a $28*28$ image, that's $784$ times!)
 
-In the above steps, we're calculating the change in probability of the images being handwritten wrt. to each pixel in the image ($784$ for a $28x28$ image), mathematically it can be represented as follows: 
+In the above steps, we're calculating the change in probability of the images being handwritten with respect to each pixel in the image ($784$ for a $28x28$ image), mathematically, it can be represented as follows:
 $$\nabla_X P(X)$$
 \
 
@@ -106,10 +107,10 @@ $$\nabla_X P(X)$$
 $\nabla_X P(X)$ is itself a vector of size $784$.
 :::
 
-Next step we do is to multiply $\nabla_X P(X)$ with some constant.
+Next step is to multiply $\nabla_X P(X)$ with some constant.
 $$c*\nabla_X P(X)$$
 
-Now we subtract the above term from the $784$ pixel values of $X$ and in turn increase the output probability, and we do it a bunch of times.\
+Now subtract the above term from the $784$ pixel values of $X$, and in turn increase the output probability, and we do it a bunch of times.\
 
 ```{mermaid}
 flowchart LR
@@ -123,26 +124,34 @@ flowchart LR
 
 Having gone through all that, it would be an intelligent guess to say that now all we need is for someone to give us the magic function so we can start generating.\
 
-But there's some bad news, nobody is going to hand us any magical function that takes care of everything. We're going to have to train our own neural network on a lot of images of handwritten digits.\
 
-Seems simple enough to do for any seasoned DL practitioner. Alas! There's a catch. Now I don't know the why or how, but smarter people than me figured out that it's practically impossible if not insanely hard to create a metric that tells us how much our image looks like a specific digit. 
+But there's some bad news: nobody is going to hand us any magical function that takes care of everything. We're going to have to train our own neural network on a lot of images of handwritten digits.\
+
+
+It seems simple enough to do for any seasoned DL practitioner. Alas! There's a catch. Now I don't know why or how, but smarter people than me figured out that it's practically impossible, if not insanely hard, to create a metric that tells us how much our image looks like a specific digit.
 
 :::{.callout-important}
-Don't forget that our end goal is making super pretty images like we saw at the start, not some basic digits.
+Don't forget that our end goal is to make super pretty images like we saw at the start, not some basic digits.
+specific digit.
 :::
 So, they decided on an interesting but very logical approach.\
 \
 
 # An attempt at a basic image generation model
 
-Every image we train on can be overlayed with some random amounts of noise, the result would be a noisier image of course but now we have some place to start with.\
+Every image we train on can be overlayed with some random amounts of noise; the result would be a noisier image, of course, but now we have some place to start with.\
+
 `Noisy Image = Noise + Clear Image`
 
-Wkt we can't predict how much an image looks like something, but turns out we can try and predict how noisy an image is, and then using basic arithmetic we can see that we'd just have to subtract that predicted noise from the noisy image to end up with a relatively clear image. \
 
-Passing in a starting pic and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it. \
+We can't predict how much an image looks like something, but it turns out we can try and predict how noisy an image is, and then, using basic arithmetic, we can see that we'd just have to subtract that predicted noise from the noisy image to end up with a relatively clear image. \
+
+
+Passing in a starting picture and repeating this over and over would train our model to get good at predicting the noise in an image and getting rid of it. \
+
 
 And once it has trained over enough inputs, it can generate new images for us because it now knows how to denoise inputs.
+
 
 So we can use a model that works roughly in the fashion shown below:
 
@@ -160,11 +169,14 @@ flowchart LR
 
 Although the model above is decent, it can be optimised further using the concept of *guidance*. I'll explain.\
 
-Currently, at the start of the training process, we're leaving our model in the dark really with no clue about what digit it's supposed to identify since we're passing in somewhat noisy inputs.\
 
-Say our model knew what it was supposed to look for, wouldn't it make logical sense then to pass in that thing? That's what guidance does. Along with the input (obviously), we also pass the digit our model is supposed to remove noise from.\
+Currently, at the start of the training process, we're leaving our model in the dark, really with no clue about what digit it's supposed to identify since we're passing in somewhat noisy inputs.\
 
-Now once the model is trained, *guidance* would help generate better new images, because it can denoise better! Duh. So our current model would actually end up looking more like: 
+
+If our model knew what it was supposed to look for, wouldn't it make logical sense to pass in that thing? That's what guidance does. Along with the input (obviously), we also pass the digit our model is supposed to remove noise from. \
+
+
+Now, once the model is trained, *guidance* would help generate better new images because it can denoise better! Duh. So our current model would actually end up looking more like:
 
 ```{mermaid}
 flowchart LR
@@ -182,14 +194,14 @@ flowchart LR
 
 If we were living in the 90s, the model we built would certainly grab a lot of attention and maybe fame, but we're not. We have overlooked some very grave issues.
 
-1. We're not working with tiny $28x28$ pixel images of handwritten digits here, we're working with $512x512x3$ (High quality RGB) images.
-2. Each of our $9$ handwritten digits can be one-hot encoded into a vector but beyond that, we can't one-hot encode infinite possible texts. 
+1. We're not working with tiny $28x28$ pixel images of handwritten digits here; we're working with $512x512x3$ (high-quality RGB) images.
+2. Each of our $9$ handwritten digits can be one-hot encoded into a vector, but beyond that, we can't one-hot encode infinite possible texts.
 
 :::{.callout-note }
 Try one hot encoding any phrase of your choice. It's hard.
 :::
 
-Well then, is our case hopeless here? Were the images I showed faked? No, for we have the `VAE autoencoder` and the `CLIP` multimodal encoders and decoders to the rescue. Let's understand what they are and get into how they solve both of our problems.
+Well, then, is our case hopeless here? Were the images I showed faked? No, for we have the `VAE autoencoder` and the `CLIP`  encoders and decoders to the rescue. Let's understand what they are and get into how they solve both of our problems.
 \
 
 ## VAE: Variational Auto Encoder
@@ -197,28 +209,30 @@ Well then, is our case hopeless here? Were the images I showed faked? No, for we
 ![Variational Auto Encoder](VAE.png)
 
 \
-In the context of our model, VAE is just a data compression and decompression algorithm with a fancy name.\ 
+In the context of our model, VAE is just a data compression and decompression algorithm with a fancy name.\
 
-VAE tries that what came in as input is the same as what comes out, it's architecture might look similar to U-Net but VAE does not have cross connections unlike the former and VAE is also an autoencoder.\ 
 
-The special thing about autoencoders is that they can split in half and we can just use the encoder and decoder seperately.
+VAE tries to ensure that what comes in as input is the same as what comes out. It's architecture might look similar to U-Net, but VAE does not have cross-connections, unlike the former, and VAE is also an autoencoder.\
 
-The encoder serves as a great compression method and on the $512*512*3$ example it reduces the pixel count from $786,432$ to a mere $16,384$. A size reduction of $48$ times. 
+
+The special thing about autoencoders is that they can be split in half, and we can just use the encoder and decoder separately.
+
+
+The encoder serves as a great compression method, and on the $512*512*3$ example, it reduces the pixel count from $786,432$ to a mere $16,384$. A size reduction of $48$ times.
 
 :::{.callout-important}
-The encoder peforms compression by doing stride 2 convolutions and doubling the channel size, this helps in increasing the complexity and expressive power of the model without increasing the spatial feature maps.
+The encoder performs compression by doing stride 2 convolutions and doubling the channel size; this helps in increasing the complexity and expressive power of the model without increasing the spatial feature maps.
 
-So, a stride 2 convolution reduces the spatial dimensions and memory usage and additional channels give the model more capacity to learn.
+So, a stride 2 convolution reduces the spatial dimensions and memory usage, and additional channels give the model more capacity to learn.
 :::
 
-And if we have a copy of the decoder, we can feed the encoded latent to it and end up with the high resolution image again. 
+And if we have a copy of the decoder, we can feed the encoded latent to it and end up with the high-resolution image again.
 
-This model serves a great compression algorithm because it's been trained on millions upon millions of input images, at the start of its training process, the VAE spits out random noise out of it's decoder but if we use the humble `Mean Squared Error` function on the encoder input and decoder output to train the VAE reduce the loss.
+This model serves as a great compression algorithm because it's been trained on millions upon millions of input images. At the start of its training process, the VAE spits out random noise out of its decoder, but if we use the humble `Mean Squared Error` function on the encoder input and decoder output to train the VAE, we reduce the loss.
 
+How it works is interesting, though. VAE is built up of two main components, and each of them can work independently once the autoencoder has been trained. \
 
-How it works is interesting though. VAE, is built up of two main components and each of them can work independently once the autoencoder has been trained.\
-
-The first part consists of the Encoder. This is where compression happens, we start with a high resolution image of $512*512*3$ and keep performing convolutions of stride 2 and doubling the channels till we end up with a relatively much lower dimension image. This image is called the `latent` and the multi-dimensional space it exists in is called the `latent space`.
+The first part consists of the encoder. This is where compression happens. We start with a high-resolution image of $512*512*3$ and keep performing convolutions of stride 2 and doubling the channels till we end up with a relatively lower-dimensional image. This image is called the `latent` and the multi-dimensional space it exists in is called the `latent space`.
 
 :::{.callout-note}
 A `latent` contains the most interesting and useful information of an image.
@@ -229,7 +243,7 @@ A `feature` in CNN refers to specific characteristics or pattern in the input da
 :::
 
 :::{.callout-note}
-A stride two convolution means that at each step, the convolution skips a column and a row. So for a $4*4$ grid, a stride 2 convolution would bring the size down
+A stride two convolution means that at each step, the convolution skips a column and a row. So for a $4*4$ grid, a stride 2 convolution would bring the size down.
 :::
 
 ```{mermaid}
@@ -238,9 +252,9 @@ flowchart LR
   M --> O["Image Latent Tensor"]
 ```
 
-Now let's get back to what we need VAE for, the size problems our older model had. Since we can compress image sizes by godly amounts, there's no doubt, that we'll train the U-Net model with these encoded images (latents).
+Now let's get back to what we need VAE for: the size problems our older model had. Since we can compress image sizes by godly amounts, there's no doubt that we'll train the U-Net model with these encoded images (latents).
 
-So, if our U-Net needs to be trained on 10 million images, we'll pass each one of them through `VAE's encoder` first, and then we feed these latents into the U-Net 100s to 1000s of times.
+So, if our U-Net needs to be trained on 10 million images, we'll pass each one of them through `VAE's encoder` first, and then we feed these latents into the U-Net hundreds to thousands of times.
 
 :::{.callout-caution}
 Don't forget that U-Net denoises input images through repetition.
@@ -258,7 +272,7 @@ flowchart LR
   nI == "(6)" ==> M
 ```
 
-Wouldn't this new latent based model spit out latents too? Yes, it will but we don't forget that we also have the other half of our autoencoder. The `VAE decoder` will be able to take in the generated latent as input and then output a high resolution image. It'd be like there wasn't any compression-decompression to begin with. 
+Wouldn't this new latent-based model spit out latents too? Yes, it will, but we don't forget that we also have the other half of our autoencoder. The `VAE decoder` will be able to take in the generated latent as input and then output a high-resolution image. It'd be like there wasn't any compression or decompression to begin with.
 
 ```{mermaid}
 flowchart LR
@@ -266,7 +280,7 @@ flowchart LR
   M --> O["High Res Version of Generated Image"]
 ```
 
-Technically we don't need to use an autoencoder, but it greatly saves on computation necessary and the time it takes to generate an image as well as the modern training itself.
+Technically, we don't need to use an autoencoder, but it greatly saves on the computation necessary and the time it takes to generate an image, as well as the modern training itself.
 
 :::{.callout-note}
 `VAE encoder`: Used during model training.
@@ -277,23 +291,23 @@ Technically we don't need to use an autoencoder, but it greatly saves on computa
 
 ## CLIP
 
-Ignore the weird name for now and focus on the second problem we had. 
-Which was, finding a way to create embeddings for any possible text and not just the digits b/w 0 to 9 so we could guide the model.
+Ignore the weird name for now and focus on the second problem we had.
+Which was finding a way to create embeddings for any possible text and not just the digits b/w 0 to 9 so we could guide the model.
 
-What if we had a model that spat out a vector representation of every complex sentence, such that we could pass it with our `latent tensor` as `guidance`. And what if, that model created textual embeddings in such a way, that they ended up being close to the `latent tensor`'s embedding in the `latent space`.
+What if we had a model that spat out a vector representation of every complex sentence, such that we could pass it with our `latent tensor` as 'guidance'? And what if that model created textual embeddings in such a way that they ended up being close to the `latent tensor`'s embedding in the `latent space'?
 
 :::{.callout-warning collapse="true" title="My personal intuition for this, could be wrong."}
-If the above paragraph was hard to get, I can explain with a more grounded example. 
-I'm aware that the human brain and neural networks are not at all the same in the manner with which they function, and are designed but I couldn't think of an easier example, so bear with me. 
+If the above paragraph was hard to understand, I can explain with a more grounded example.
+I'm aware that the human brain and neural networks are not at all the same in the manner in which they function and are designed, but I couldn't think of an easier example, so bear with me.
 
-Imagine a *guitar with a few broken strings*, after reading this text could your brain think up of an image showing the same? It might not be super clear, 4k quality or something, but you could in your head think of an image that had the most important features that a *guitar with a few broken strings* might have.
+Imagine a *guitar with a few broken strings*, after reading this text, could your brain think of an image showing the same? It might not be super clear, 4K quality, or something, but you could in your head think of an image that had the most important features that a *guitar with a few broken strings* might have.
 
-I think that a `latent space` is just that neural network analog for that headspace we go into. Our brain was able to process and break-down the text and then also match it to a visual representation.
+I think that a `latent space` is just that neural network analogue for that headspace we go into. Our brain was able to process and break down the text and then also match it to a visual representation.
 
-So we essentially need a model, that is capable of doing something similar to this in essence. CLIP is one such model that does this job.
+In essence, we need a model that is capable of doing something similar to this. CLIP is one such model that does this job.
 :::
 
-CLIP is made up of two models. A Text-encoder and an Image-encoder. 
+CLIP is made up of two models. A text encoder and an image encoder.
 ```{mermaid}
 flowchart TD
   T["Input text"] --> TE(["CLIP Text Encoder"])
@@ -305,29 +319,36 @@ flowchart TD
 ```
 
 
-Both encoders need to be trained first with randomly selected weights. The 'CL' in CLIP stands for `contrastive loss` and that's what helps in training both the text and image encoders. Fancy name apart, training process is quite simple. 
+Both encoders need to be trained first with randomly selected weights. The 'CL' in CLIP stands for `contrastive loss', and that's what helps in training both the text and image encoders. Fancy name apart, the training process is quite simple.
+
 
 Let's take three random text prompts:
 
+
 `Text 1`: *Muscular Hen's caricature*
+
 
 `Text 2`: *Broken Egg*
 
+
 `Text 3`: *Senior man with long hair and beard portrait*
 
-We'll call the vector representation of each text prompt as `T1`, `T2`, `T3` respectively.
 
-We also now have 3 images of the same, and we'll use `I1`, `I2`, `I3` to represent the vector representations of these images. All of these vector representations were generated by throwing them into the CLIP encoders (and they're random right now because we haven't trained CLIP yet).
+We'll call the vector representation of each text prompt `T1`, `T2`, and `T3`, respectively.
 
-Now, we can make a grid with the Image vectors lined up along the columns and the Text vectors lined along the rows.
+
+We also now have 3 images of the same, and we'll use `I1`, 'I2', and `I3` to represent the vector representations of these images. All of these vector representations were generated by throwing them into the CLIP encoders (and they're random right now because we haven't trained CLIP yet).
+
+
+Now, we can make a grid with the image vectors lined up along the columns and the text vectors lined up along the rows.
 
 ![Training Grid](CLIP.png)
 
-Each cell of the grid contains the dot product of the two representation vectors. The dot product of vectors that actually describe an image with the right text will be the highest, i.e. of the diagonal cells. 
+Each cell of the grid contains the dot product of the two representation vectors. The dot product of vectors that actually describe an image with the right text will be the highest, i.e., of the diagonal cells.
 
-The non-diagonal cells on the other hand, should have low values once the model is trained, because the embeddings are far apart from each other in the `latent-space`. The text representation vector is not correct for the image.
+The non-diagonal cells, on the other hand, should have low values once the model is trained because the embeddings are far apart from each other in the `latent-space`. The text representation vector is not correct for the image.
 
-Now as the final step, we sum up all the diagonals together and we also sum up all the non-diagonals separately. 
+As the final step, we sum up all the diagonals together, and we also sum up all the non-diagonals separately.
 
 1. $Sum_d = \text{Sum of Diagonals}$
 2. $Sum_nd = \text{Sum of Non-Diagonals}$
@@ -335,7 +356,9 @@ Now as the final step, we sum up all the diagonals together and we also sum up a
 
 The loss function is known as `Contrastive Loss`, and it should be zero if all our generated embeddings are perfect matches.
 
-So, to conclude this section. CLIP is a multi-modal model as our embeddings all share the same space and it helps us solve our second problem of not having a way to create embeddings for complex text.
+The loss function is known as `Contrastive Loss`, and it should be zero if all our generated embeddings are perfect matches.
+
+So, to conclude this section, CLIP is a multi-modal model, as our embeddings all share the same space, and it helps us solve our second problem of not having a way to create embeddings for complex text.
 \
 
 # Updated Model
@@ -351,34 +374,34 @@ flowchart LR
   nI == "(6)" ==> M
 ```
 
-Now our model can take any image as input with any arbritarily complex text describing what the image is about and our model would be able to use that as guidance to denoise input latents better.
+Now our model can take any image as input with any arbitrarily complex text describing what the image is about, and our model would be able to use that as guidance to denoise input latents better.
 
-And what about generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.
+And what about image generation? For image generation, our model could take as input any random bits of noise and convert that noise into something that matches the text embedding by using the feature vectors of the very same embedding.
 
-This model could serve as the final one, but in practice stable diffusion has one extra implementation detail that we haven't discussed yet. It's called Time-Steps.
+This model could serve as the final one, but in practice, stable diffusion has one extra implementation detail that we haven't discussed yet. It's called time steps.
 \
 
 # Time-Steps
 
-To start off, time steps has nothing to do with time. It's just an overhang from the math of the first few papers written on stable defusion. 
+To start off, time steps have nothing to do with time. It's just an overhang from the math of the first few papers written on stable defusion.
 
-It's just a method of generating random noise for the inputs we pass in to our model. The noise used is varying and the `noise schedule` is some monotonically decreasing function.
+It's just a method of generating random noise for the inputs we pass into our model. The noise used is varying, and the `noise schedule` is some monotonically decreasing function.
 
 ![Time-Steps v/s noise schedule](noise.png){width=70%}
 
 
-The algorithm to pick noise is: 
+The algorithm to pick up noise is:
 
-1. Randomly choose a number b/w 1-100
-2. Look at noise schedule for that number.
+1. Randomly choose a number between 1 and 100.
+2. Look at the noise schedule for that number.
 
-`t=1` has a lot of noise, 1000 has the least. So the time-step `t` is pretty much telling us how much noise to use.
+`t=1` has a lot of noise; 1000 has the least. So the time step `t` is pretty much telling us how much noise to use.
 
-How is this used in practice? 
-Well, we generate noise using the 2 steps above for each image in our mini-batch and we add that generated noise to each image in the mini-batch respectively.
+How is this used in practice?
+Well, we generate noise using the 2 steps above for each image in our mini-batch, and we add that generated noise to each image in the mini-batch, respectively.each image in our mini-batch and we add that generated noise to each image in the mini-batch respectively.
 
 :::{.callout-note}
-These days, it's widely accepted that the addition of noise to input images using time-steps in stable-diffusion impacted the quality of the generated images negatively and it's not used in newer diffusion models.
+These days, it's widely accepted that the addition of noise to input images using time steps in stable diffusion impacted the quality of the generated images negatively, and it's not used in newer diffusion models.
 :::
 \ 
 
@@ -386,18 +409,22 @@ These days, it's widely accepted that the addition of noise to input images usin
 
 How does whatever we did above tie in with the first equation we had?
 
-`Some Noisy Image` - $c*\nabla_X P(X)$ 
+`Some Noisy Image` - $c*\nabla_X P(X)$
 
-1. What would the value of $c$ be and is it similar to learning rate?
-  : `Ans`. The value of $c$ depends on the diffusion sampler we use and yes $c$ is kind of like a learning rate.
-2. Why can't our model jump to the best image in one step?
-  : `Ans`. Because things that look weird and hideous like the image below don't appear in our training set, and our model doesn't know what to do with them.
+1. What would the value of $c$ be, and is it similar to the learning rate?
 
-  ![hideous image generated by the model](ugly.png){width=70%}
+    `Ans`. The value of $c$ depends on the diffusion sampler we use, and yes, $c$ is kind of like a learning rate.
 
-  Our model only knows how to deal with somewhat noisy images and that's it. It can only denoise whenever it sees some noise.
+2. **Why can't our model jump to the best image in one step?**
 
-  That's why we subtract just a bit of noise (hence the $c$), so that we are always left with some noisy latent.
+    `Ans`. Because things that look weird and hideous, like the image below don't appear in our training set, and our model doesn't know what to do with them.
+
+    ![hideous image generated by the model](ugly.png){width=70%}
+    \ 
+    
+    Our model only knows how to deal with somewhat noisy images, and that's it It can only denoise whenever it sees some noise.
+    
+    That's why we subtract just a bit of noise (hence the $c$), so that we are always left with some noisy latent.
 
 # References
 
